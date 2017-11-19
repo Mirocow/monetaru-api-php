@@ -27,9 +27,6 @@ trait ConvertToArray
         } elseif (is_object($value) && method_exists($value, 'toArray')) {
             // Если прилетел объект, и у него есть метод 'convertToArray' - то его и используем
             return $value->toArray();
-        } elseif ($value instanceof Response) {
-            // Немного рекурсии не помешает ;)
-            return $this->convertToArray($value->getBody()->getContents());
         }
 
         return (array) $value;

@@ -2,8 +2,8 @@
 
 namespace AvtoDev\MonetaApi\Tests;
 
-use AvtoDev\MonetaApi\HttpClientInterface;
 use PHPUnit\Framework\TestCase;
+use AvtoDev\MonetaApi\HttpClientInterface;
 use AvtoDev\MonetaApi\HttpClients\GuzzleHttpClient;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
@@ -14,12 +14,12 @@ use AvtoDev\MonetaApi\Tests\Types\Requests\Mock\RequestMock;
 /**
  * Class AbstractBuilderTest.
  *
- * @group cur
+ * @group requests
  */
 class AbstractBuilderTest extends TestCase
 {
     /**
-     * @var RequestMock|HttpClientInterface
+     * @var HttpClientInterface|RequestMock
      */
     protected $builder;
 
@@ -43,39 +43,13 @@ class AbstractBuilderTest extends TestCase
         $this->assertFalse($this->builder->hasAttributeByValue('value'));
 
         $this->builder->pushAttribute($attribute = new MonetaAttribute('test', 'value'));
-        $this->assertTrue($this->builder->hasAttribute($attribute));
-        $this->assertTrue($this->builder->hasAttributeByType('test'));
-        $this->assertTrue($this->builder->hasAttributeByValue('value'));
-        $this->assertCount(1, $this->builder->attributes());
+
         $this->assertInstanceOf(
             \stdClass::class,
             $response = $this->builder->exec()
         );
 
         $this->assertEquals('value', $response->key);
-    }
-
-    public function testAttributeGet()
-    {
-        $this->assertNull($this->builder->getAttributeByType('test'));
-
-        $this->builder->pushAttribute($attribute = new MonetaAttribute('test', 'value'));
-
-        $this->assertInstanceOf(MonetaAttribute::class, $getAttribute = $this->builder->getAttributeByType('test'));
-        $this->assertEquals($attribute, $getAttribute);
-        $this->assertEquals('value', $getAttribute->getValue());
-        $this->assertEquals('test', $getAttribute->getName());
-    }
-
-    public function testAttributeClear()
-    {
-        $this->builder->pushAttribute($attribute = new MonetaAttribute('test', 'value'));
-        $this->builder->clearAttributes();
-        $this->assertCount(0, $this->builder->attributes());
-
-        $this->builder->pushAttribute($attribute = new MonetaAttribute('test', 'value'));
-        $this->builder->dropAttribute($attribute->getName());
-        $this->assertCount(0, $this->builder->attributes());
     }
 
     public function testClientException()

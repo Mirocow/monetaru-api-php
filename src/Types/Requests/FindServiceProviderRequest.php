@@ -4,7 +4,7 @@ namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\Types\Provider;
 
-class FindServiceProviderByIdRequest extends AbstractRequest
+class FindServiceProviderRequest extends AbstractRequest
 {
     public $providerId;
 
