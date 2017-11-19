@@ -46,7 +46,8 @@
     "source": "https://github.com/avto-dev/b2b-api-php"
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit --no-coverage"
+    "test": "./vendor/bin/phpunit --no-coverage",
+    "cs": "./vendor/bin/cs-fix"
   },
   "config": {
     "sort-packages": true

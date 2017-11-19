@@ -2,6 +2,7 @@
 
 namespace AvtoDev\MonetaApi\Tests;
 
+use AvtoDev\MonetaApi\HttpClientInterface;
 use PHPUnit\Framework\TestCase;
 use AvtoDev\MonetaApi\HttpClients\GuzzleHttpClient;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
@@ -18,7 +19,7 @@ use AvtoDev\MonetaApi\Tests\Types\Requests\Mock\RequestMock;
 class AbstractBuilderTest extends TestCase
 {
     /**
-     * @var RequestMock
+     * @var RequestMock|HttpClientInterface
      */
     protected $builder;
 
