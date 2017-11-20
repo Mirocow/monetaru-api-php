@@ -354,6 +354,11 @@ class Fine extends AbstractType
         return $this->discountDate;
     }
 
+    /**
+     * Получить атрибуты для передачи в оплату.
+     *
+     * @return MonetaAttribute[]
+     */
     public function getOperationInfo()
     {
         $attributes = [];

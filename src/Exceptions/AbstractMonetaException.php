@@ -704,9 +704,12 @@ abstract class AbstractMonetaException extends \Exception
         '500.9.4' => 'Запрос может быть вызван только в асинхронномрежиме. Используйте AsyncRequest для работы сданным запросом',
     ];
 
+    protected $monetaExceptionCode;
+
     public function __construct($message = '', $code = 0, Throwable $previous = null)
     {
         if ($code) {
+            $this->monetaExceptionCode = $code;
             $message .= ' ' . $this->codes[$code];
         }
         parent::__construct($message, 400, $previous);

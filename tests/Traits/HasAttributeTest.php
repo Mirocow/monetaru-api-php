@@ -2,8 +2,6 @@
 
 namespace AvtoDev\MonetaApi\Tests\Traits;
 
-use PHPUnit\Framework\TestCase;
-use AvtoDev\MonetaApi\Tests\Traits\Mock\TraitMock;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
 /**
@@ -11,17 +9,8 @@ use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
  *
  * @group traits
  */
-class HasAttributeTest extends TestCase
+class HasAttributeTest extends AbstractTraitTestCase
 {
-    /** @var TraitMock */
-    protected $class;
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->class = new TraitMock;
-    }
-
     public function testAttributeSet()
     {
         $this->assertFalse($this->class->hasAttributeByValue('value'));

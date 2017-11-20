@@ -66,6 +66,7 @@ abstract class AbstractRequest
         $responseObject = \json_decode($response);
         $responseBody   = $responseObject->Envelope->Body;
         if ($this->httpClient->lastStatusCode() !== 200 || isset($responseBody->fault)) {
+            dump($responseObject);
             throw $this->throwError($responseBody);
         }
 
@@ -76,7 +77,7 @@ abstract class AbstractRequest
     {
         foreach ($this->required as $attribute) {
             if (! $this->hasAttributeByType($attribute)) {
-                throw new MonetaBadRequestException("Не заполнен обязательный атрибут $attribute", '500.1');
+                throw new MonetaBadRequestException("Не заполнен обязательный атрибут: $attribute", '500.1');
             }
         }
     }

@@ -3,25 +3,14 @@
 namespace AvtoDev\MonetaApi\Tests\Traits;
 
 use Carbon\Carbon;
-use PHPUnit\Framework\TestCase;
-use AvtoDev\MonetaApi\Tests\Traits\Mock\TraitMock;
 
 /**
  * Class ConvertToCarbonTest.
  *
  * @group traits
  */
-class ConvertToCarbonTest extends TestCase
+class ConvertToCarbonTest extends AbstractTraitTestCase
 {
-    /** @var TraitMock */
-    protected $class;
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->class = new TraitMock;
-    }
-
     public function testCarbon()
     {
         $this->class->test = Carbon::create();

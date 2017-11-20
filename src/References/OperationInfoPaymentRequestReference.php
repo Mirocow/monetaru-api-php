@@ -102,7 +102,15 @@ class OperationInfoPaymentRequestReference extends AbstractReference
     /**
      * дата действия скидки по оплате.
      */
-    const DISCOUNT_DATE = FineReference::FIELD_DISCOUNT_DATE;
+    const DISCOUNT_DATE   = FineReference::FIELD_DISCOUNT_DATE;
+
+    const FIELD_UIN       = 'CUSTOMFIELD:105';
+
+    const SUB_PROVIDER_ID = 'SUBPROVIDERID';
+
+    const PAYER_FIO       = 'WIREPAYER';
+
+    const PAYER_PHONE     = 'CUSTOMFIELD:PHONE';
 
     public static function getAll()
     {
@@ -127,6 +135,9 @@ class OperationInfoPaymentRequestReference extends AbstractReference
             static::TOTAL_AMOUNT,
             static::DISCOUNT_SIZE,
             static::DISCOUNT_DATE,
+            static::FIELD_UIN,
+            static::PAYER_FIO,
+            static::PAYER_PHONE,
         ];
     }
 }
