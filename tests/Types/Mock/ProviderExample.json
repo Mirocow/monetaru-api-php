@@ -1,0 +1,15 @@
+{
+  "id": "9171.1",
+  "targetAccountId": 9171,
+  "name": "Оплата штрафов ГИБДД 3998 (Федеральное Казначейство)",
+  "active": true,
+  "attributes": {
+    "attribute": [
+      {
+        "name": "INN",
+        "value": "1215192632"
+      }
+    ]
+  },
+  "subProviderId": 1
+}

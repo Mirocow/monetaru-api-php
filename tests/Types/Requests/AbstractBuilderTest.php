@@ -1,6 +1,6 @@
 <?php
 
-namespace AvtoDev\MonetaApi\Tests;
+namespace AvtoDev\MonetaApi\Tests\Types\Requests;
 
 use PHPUnit\Framework\TestCase;
 use AvtoDev\MonetaApi\HttpClientInterface;
@@ -31,15 +31,16 @@ class AbstractBuilderTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->http = \Mockery::mock(GuzzleHttpClient::class);
-        $this->http->shouldReceive('post')->once()->andReturn('{"Envelope":{"Body":{"key":"value"}}}');
-
-        $this->http->shouldReceive('lastStatusCode')->once()->andReturn(200);
+        $this->http    = \Mockery::mock(GuzzleHttpClient::class);
         $this->builder = new RequestMock($this->http, ['header' => 'content'], '91');
     }
 
     public function testAttributeSet()
     {
+        $this->http->shouldReceive('post')->once()->andReturn('{"Envelope":{"Body":{"key":"value"}}}');
+
+        $this->http->shouldReceive('lastStatusCode')->once()->andReturn(200);
+
         $this->assertFalse($this->builder->hasAttributeByValue('value'));
 
         $this->builder->pushAttribute($attribute = new MonetaAttribute('test', 'value'));
@@ -67,7 +68,6 @@ class AbstractBuilderTest extends TestCase
                 400
             );
         $this->builder->exec();
-        $this->builder->exec();
     }
 
     public function testServerException()
@@ -86,7 +86,6 @@ class AbstractBuilderTest extends TestCase
                 400
             );
         $this->builder->exec();
-        $this->builder->exec();
     }
 
     public function testUnknownException()
@@ -102,7 +101,6 @@ class AbstractBuilderTest extends TestCase
             ->andReturn(
                 400
             );
-        $this->builder->exec();
         $this->builder->exec();
     }
 

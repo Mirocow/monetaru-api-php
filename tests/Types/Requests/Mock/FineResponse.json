@@ -1,0 +1,113 @@
+{
+  "Envelope": {
+    "Body": {
+      "GetNextStepResponse": {
+        "providerId": "9171.1",
+        "nextStep": "PAY",
+        "fields": {
+          "field": [
+            {
+              "minlength": 0,
+              "orderBy": 18,
+              "temporary": false,
+              "attribute-name": "CUSTOMFIELD:105",
+              "label": "Постановление",
+              "enum": {
+                "complexItem": [
+                  {
+                    "amount": 800.0,
+                    "id": "123456789",
+                    "content": [
+                      {
+                        "name": "CUSTOMFIELD:BILLDATE",
+                        "value": "2017-10-13"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:SOINAME",
+                        "value": "ОГИБДД МО МВД России"
+                      },
+                      {
+                        "name": "WIREUSERINN",
+                        "value": "6607005515"
+                      },
+                      {
+                        "name": "WIREKPP",
+                        "value": "660701001"
+                      },
+                      {
+                        "name": "WIREBANKACCOUNT",
+                        "value": "40101810500000010010"
+                      },
+                      {
+                        "name": "WIREBANKNAME",
+                        "value": "Уральское ГУ Банка России"
+                      },
+                      {
+                        "name": "WIREBANKBIK",
+                        "value": "046577001"
+                      },
+                      {
+                        "name": "WIREPAYMENTPURPOSE",
+                        "value": "ШТРАФ ПО АДМИНИСТРАТИВНОМУ ПРАВОНАРУШЕНИЮ ПОСТАНОВЛЕНИЕ №123456789"
+                      },
+                      {
+                        "name": "WIREUSERNAME",
+                        "value": "УФК по Свердловской области"
+                      },
+                      {
+                        "name": "WIREKBK",
+                        "value": "18811630020016000140"
+                      },
+                      {
+                        "name": "WIREOKTMO",
+                        "value": "65708000"
+                      },
+                      {
+                        "name": "WIREALTPAYERIDENTIFIER",
+                        "value": "2200000000000000000000643"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:SIGN",
+                        "value": "28ef2e759cd88cdf6ad5b053a3c660c59a13441c7ce67dfba88dc94112a060ad"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:TOTALAMOUNT",
+                        "value": "800.00"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:ISPAID",
+                        "value": "false"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:DISCOUNTSIZE",
+                        "value": "50"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:DISCOUNTDATE",
+                        "value": "2017-11-02"
+                      },
+                      {
+                        "name": "CUSTOMFIELD:LSVUFK"
+                      }
+                    ],
+                    "label": "УИН 123456789 от 2017-10-13 на 800.00 руб."
+                  }
+                ]
+              },
+              "steps": [
+                "PAY"
+              ],
+              "type": "ENUM",
+              "id": 105,
+              "maxlength": 30,
+              "hidden": false,
+              "comment": "",
+              "required": true,
+              "readonly": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

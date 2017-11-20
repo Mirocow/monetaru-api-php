@@ -24,14 +24,14 @@ class ConvertToCarbonTest extends TestCase
 
     public function testCarbon()
     {
-        $this->class->test  = Carbon::create();
+        $this->class->test = Carbon::create();
         $this->assertEquals($this->class->test, $this->class->toCarbon());
     }
 
     public function testDateTime()
     {
-        $this->class->test  = new \DateTime();
-        $carbon             = Carbon::instance($this->class->test);
+        $this->class->test = new \DateTime;
+        $carbon            = Carbon::instance($this->class->test);
         $this->assertEquals($carbon, $this->class->toCarbon());
     }
 
@@ -44,7 +44,7 @@ class ConvertToCarbonTest extends TestCase
 
     public function testString()
     {
-        $carbon            = Carbon::now();
+        $carbon            = Carbon::create();
         $this->class->test = $carbon->toAtomString();
         $this->assertEquals($carbon, $this->class->toCarbon());
     }

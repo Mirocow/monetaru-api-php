@@ -3,8 +3,10 @@
 namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\Types\Provider;
+use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
+use AvtoDev\MonetaApi\References\ProviderRequestReference;
 
-class FindServiceProviderRequest extends AbstractRequest
+class FindServiceProviderByIdRequest extends AbstractRequest
 {
     public $providerId;
 
@@ -18,6 +20,7 @@ class FindServiceProviderRequest extends AbstractRequest
     public function byId($id)
     {
         $this->providerId = $id;
+        $this->pushAttribute(new MonetaAttribute(ProviderRequestReference::FIELD_PROVIDER_ID, $id));
 
         return $this;
     }

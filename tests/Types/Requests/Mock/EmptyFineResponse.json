@@ -1,0 +1,188 @@
+{
+  "Envelope": {
+    "Body": {
+      "GetNextStepResponse": {
+        "providerId": "9171.1",
+        "fields": {
+          "field": [
+            {
+              "orderBy": 1,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:200",
+              "label": "Способ поиска постановления",
+              "enum": {
+                "complexItem": [
+                  {
+                    "id": "1",
+                    "label": "по личным данным"
+                  },
+                  {
+                    "id": "0",
+                    "label": "по УИН"
+                  },
+                  {
+                    "id": "5",
+                    "label": "по альтернативному идентификатору"
+                  }
+                ]
+              },
+              "steps": [
+                "PRE"
+              ],
+              "type": "ENUM",
+              "id": 200,
+              "hidden": false,
+              "value": "1",
+              "comment": "",
+              "required": true,
+              "readonly": false
+            },
+            {
+              "minlength": 10,
+              "orderBy": 102,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:102",
+              "label": "Номер свидетельства о регистрации ТС",
+              "steps": [
+                "PRE"
+              ],
+              "type": "TEXT",
+              "dependency": "{200}==\"1\"",
+              "id": 102,
+              "maxlength": 110,
+              "pattern": "^((?!1234567890)(?!(\\d)\\2{8}\\d)[0-9A-Za-zА-я]{10,12};?)+$",
+              "hidden": false,
+              "comment": "Свидетельством о регистрации ТС является ламинированная карточка светло-фиолетового цвета. Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 77ТС123456;78ТС654321",
+              "required": false,
+              "readonly": false
+            },
+            {
+              "minlength": 10,
+              "error": "Некорректный формат поля \"Номер водительского удостоверения\"",
+              "orderBy": 103,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:103",
+              "label": "Номер водительского удостоверения",
+              "steps": [
+                "PRE"
+              ],
+              "type": "TEXT",
+              "dependency": "{200}==\"1\"",
+              "id": 103,
+              "maxlength": 110,
+              "pattern": "^((?!1234567890)(?!(\\d)\\2{8}\\d)[0-9A-Za-zА-я]{10,12};?)+$",
+              "hidden": false,
+              "value": "0000",
+              "required": false,
+              "comment": "Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 90ТС654321;91ТС123456",
+              "readonly": false
+            },
+            {
+              "minlength": 20,
+              "orderBy": 2,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:101",
+              "label": "Уникальный идентификатор начисления",
+              "steps": [
+                "PRE"
+              ],
+              "type": "TEXT",
+              "dependency": "{200}==\"0\"",
+              "id": 101,
+              "maxlength": 260,
+              "pattern": "^(([0-9A-Za-zА-я]{20}|[0-9]{25})(;)?)+$",
+              "hidden": false,
+              "comment": "Возможно указание нескольких идентификаторов через разделитель \";\"",
+              "required": true,
+              "readonly": false
+            },
+            {
+              "minlength": 20,
+              "orderBy": 108,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:108",
+              "label": "Альтернативный идентификатор плательщика",
+              "steps": [
+                "PRE"
+              ],
+              "type": "TEXT",
+              "dependency": "{200}==\"5\"",
+              "id": 108,
+              "maxlength": 275,
+              "pattern": "^([0-9A-Za-zА-я]{20,25}(;)?)+$",
+              "hidden": false,
+              "comment": "Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 24000000000012УН345678643;24000000000023УН456789643",
+              "required": false,
+              "readonly": false
+            },
+            {
+              "id": 114,
+              "orderBy": 114,
+              "hidden": false,
+              "temporary": true,
+              "enum": {
+                "complexItem": [
+                  {
+                    "id": "CHARGE",
+                    "label": "Неоплаченные"
+                  },
+                  {
+                    "id": "CHARGESTATUS",
+                    "label": "Оплаченные и неоплаченные"
+                  }
+                ]
+              },
+              "label": "Статус начислений",
+              "attribute-name": "CUSTOMFIELD:114",
+              "steps": [
+                "PRE"
+              ],
+              "required": false,
+              "type": "ENUM",
+              "comment": "",
+              "readonly": false
+            },
+            {
+              "minlength": 10,
+              "orderBy": 113,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:113",
+              "label": "Конечная дата \"окна\" поиска",
+              "steps": [
+                "PRE"
+              ],
+              "type": "DATE",
+              "dependency": "{200}==\"1\"",
+              "id": 113,
+              "maxlength": 10,
+              "hidden": false,
+              "dateformat": "dd.MM.yyyy",
+              "comment": "Дата в формате ДД.ММ.ГГГГ Пример: 31.12.2012",
+              "required": false,
+              "readonly": false
+            },
+            {
+              "minlength": 10,
+              "orderBy": 112,
+              "temporary": true,
+              "attribute-name": "CUSTOMFIELD:112",
+              "label": "Начальная дата \"окна\" поиска",
+              "steps": [
+                "PRE"
+              ],
+              "type": "DATE",
+              "dependency": "{200}==\"1\"",
+              "id": 112,
+              "maxlength": 10,
+              "hidden": false,
+              "dateformat": "dd.MM.yyyy",
+              "comment": "Дата в формате ДД.ММ.ГГГГ Пример: 31.12.2012",
+              "required": false,
+              "readonly": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

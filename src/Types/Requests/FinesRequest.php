@@ -15,6 +15,10 @@ class FinesRequest extends AbstractRequest
 
     protected $searchAttributes = [];
 
+    protected $required         = [
+        FinesRequestReference::SEARCH_METHOD,
+    ];
+
     public function bySTS($sts)
     {
         $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
@@ -59,7 +63,7 @@ class FinesRequest extends AbstractRequest
     {
         $return = [];
 
-        if ($response->GetNextStepResponse->nextStep != 'PAY') {
+        if (! isset($response->GetNextStepResponse->nextStep) || $response->GetNextStepResponse->nextStep != 'PAY') {
             return $return;
         }
         foreach ($response->GetNextStepResponse->fields->field as $field) {
@@ -79,16 +83,28 @@ class FinesRequest extends AbstractRequest
         return $return;
     }
 
-    public function dateFrom(\DateTime $date_time)
+    public function dateFrom($date_time)
     {
-        $this->searchAttributes[] =
-            ['name' => 'CUSTOMFIELD:112', 'value' => $date_time->format('d-m-Y')];
+        $carbon = $this->convertToCarbon($date_time);
+        $this->pushAttribute(
+            new MonetaAttribute(
+                FinesRequestReference::DATE_FROM, $carbon->format(FinesRequestReference::DATE_FORMAT)
+            )
+        );
+
+        return $this;
     }
 
-    public function dateTo(\DateTime $date_time)
+    public function dateTo($date_time)
     {
-        $this->searchAttributes[] =
-            ['name' => 'CUSTOMFIELD:113', 'value' => $date_time->format('d-m-Y')];
+        $carbon = $this->convertToCarbon($date_time);
+        $this->pushAttribute(
+            new MonetaAttribute(
+                FinesRequestReference::DATE_TO, $carbon->format(FinesRequestReference::DATE_FORMAT)
+            )
+        );
+
+        return $this;
     }
 
     protected function createBody()

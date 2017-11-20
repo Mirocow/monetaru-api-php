@@ -4,7 +4,6 @@ namespace AvtoDev\MonetaApi\Types;
 
 use Carbon\Carbon;
 use AvtoDev\MonetaApi\References\FineReference;
-use AvtoDev\MonetaApi\References\CommonReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
 
@@ -149,13 +148,6 @@ class Fine extends AbstractType
     protected $discountDate;
 
     /**
-     * Id получателя в системе МОНЕТА.
-     *
-     * @var string
-     */
-    protected $providerId;
-
-    /**
      * {@inheritdoc}
      */
     public function configure($content)
@@ -176,12 +168,14 @@ class Fine extends AbstractType
                     break;
 
                 case FineReference::FIELD_CONTENT:
-                    foreach ($value as $item) {
+                    $content = $this->convertToArray($value);
+                    foreach ($content as $item) {
+                        $item = (array) $item;
                         $this->configure(
                             new MonetaAttribute(
-                                $item->name,
-                                (isset($item->value))
-                                    ? $item->value
+                                $item['name'],
+                                (isset($item['value']))
+                                    ? $item['value']
                                     : null));
                     }
                     break;
@@ -252,9 +246,6 @@ class Fine extends AbstractType
 
                 case FineReference::FIELD_DISCOUNT_DATE:
                     $this->discountDate = $this->convertToCarbon($value, FineReference::DATE_FORMAT);
-                    break;
-                case CommonReference::PROVIDER_ID:
-                    $this->providerId = $value;
                     break;
             }
             if ($key !== FineReference::FIELD_CONTENT && in_array($key, FineReference::getAll())) {
@@ -361,11 +352,6 @@ class Fine extends AbstractType
     public function getDiscountDate()
     {
         return $this->discountDate;
-    }
-
-    public function getProviderId()
-    {
-        return $this->providerId;
     }
 
     public function getOperationInfo()

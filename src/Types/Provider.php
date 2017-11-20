@@ -32,6 +32,9 @@ class Provider extends AbstractType
                 case ProviderReference::FIELD_SUB_PROVIDER_ID:
                     $this->subProviderId = $value;
                     break;
+                case ProviderReference::FIELD_TARGET_ACCOUNT_ID:
+                    $this->targetAccountId = $value;
+                    break;
             }
             if (in_array($key, ProviderReference::getAll())) {
                 $this->pushAttribute(new MonetaAttribute($key, $value));

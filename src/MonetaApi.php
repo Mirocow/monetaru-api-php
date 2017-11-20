@@ -6,7 +6,7 @@ use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
 use AvtoDev\MonetaApi\HttpClients\GuzzleHttpClient;
 use AvtoDev\MonetaApi\Types\Requests\PaymentRequest;
-use AvtoDev\MonetaApi\Types\Requests\FindServiceProviderRequest;
+use AvtoDev\MonetaApi\Types\Requests\FindServiceProviderByIdRequest;
 
 class MonetaApi
 {
@@ -74,7 +74,7 @@ class MonetaApi
 
     public function getServiceProvider()
     {
-        $findProviderRequest = new FindServiceProviderRequest($this->httpClient, $this->inputHeaders, '');
+        $findProviderRequest = new FindServiceProviderByIdRequest($this->httpClient, $this->inputHeaders, '');
 
         return $findProviderRequest;
     }

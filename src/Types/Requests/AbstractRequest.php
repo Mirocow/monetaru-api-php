@@ -4,13 +4,14 @@ namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\HttpClientInterface;
 use AvtoDev\MonetaApi\Traits\HasAttributes;
+use AvtoDev\MonetaApi\Traits\ConvertToCarbon;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
 use AvtoDev\MonetaApi\Exceptions\MonetaServerErrorException;
 
 abstract class AbstractRequest
 {
-    use HasAttributes;
+    use HasAttributes, ConvertToCarbon;
 
     protected $header;
 
@@ -24,6 +25,8 @@ abstract class AbstractRequest
     protected $methodName = '';
 
     protected $providerId;
+
+    protected $required   = [];
 
     /**
      * AbstractRequest constructor.
@@ -57,7 +60,9 @@ abstract class AbstractRequest
 
     public function exec()
     {
-        $response       = $this->httpClient->post($this->getJson());
+        $this->checkRequired();
+        $response = $this->httpClient->post($this->getJson());
+
         $responseObject = \json_decode($response);
         $responseBody   = $responseObject->Envelope->Body;
         if ($this->httpClient->lastStatusCode() !== 200 || isset($responseBody->fault)) {
@@ -65,6 +70,15 @@ abstract class AbstractRequest
         }
 
         return $this->prepare($responseBody);
+    }
+
+    protected function checkRequired()
+    {
+        foreach ($this->required as $attribute) {
+            if (! $this->hasAttributeByType($attribute)) {
+                throw new MonetaBadRequestException("Не заполнен обязательный атрибут $attribute", '500.1');
+            }
+        }
     }
 
     abstract protected function createBody();
