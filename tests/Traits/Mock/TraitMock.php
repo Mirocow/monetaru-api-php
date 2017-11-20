@@ -2,6 +2,7 @@
 
 namespace AvtoDev\MonetaApi\Tests\Traits\Mock;
 
+use AvtoDev\MonetaApi\Traits\FormatPhone;
 use AvtoDev\MonetaApi\Traits\HasAttributes;
 use AvtoDev\MonetaApi\Traits\ConvertToArray;
 use AvtoDev\MonetaApi\Traits\ConvertToCarbon;
@@ -9,7 +10,7 @@ use AvtoDev\MonetaApi\Traits\StackValuesDotAccessible;
 
 class TraitMock
 {
-    use ConvertToArray, ConvertToCarbon, HasAttributes, StackValuesDotAccessible;
+    use ConvertToArray, ConvertToCarbon, HasAttributes, StackValuesDotAccessible, FormatPhone;
 
     public $test;
 
