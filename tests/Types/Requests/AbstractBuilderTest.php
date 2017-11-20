@@ -32,7 +32,8 @@ class AbstractBuilderTest extends TestCase
     {
         parent::setUp();
         $this->http    = \Mockery::mock(GuzzleHttpClient::class);
-        $this->builder = new RequestMock($this->http, ['header' => 'content'], '91');
+        $builder       = new RequestMock($this->http, ['header' => 'content'], '91');
+        $this->builder = \Mockery::mock($builder)->shouldAllowMockingProtectedMethods()->makePartial();
     }
 
     public function testAttributeSet()

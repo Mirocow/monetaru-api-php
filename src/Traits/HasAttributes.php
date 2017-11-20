@@ -13,7 +13,7 @@ trait HasAttributes
      *
      * @return $this
      */
-    public function pushAttribute(MonetaAttribute $attribute)
+    protected function pushAttribute(MonetaAttribute $attribute)
     {
         $this->attributesStack[$attribute->getName()] = $attribute;
 
@@ -23,7 +23,7 @@ trait HasAttributes
     /**
      * @return $this
      */
-    public function clearAttributes()
+    protected function clearAttributes()
     {
         $this->attributesStack = [];
 
@@ -35,7 +35,7 @@ trait HasAttributes
      *
      * @return bool
      */
-    public function hasAttribute(MonetaAttribute $attribute)
+    protected function hasAttribute(MonetaAttribute $attribute)
     {
         return in_array($attribute, $this->attributes());
     }
@@ -43,7 +43,7 @@ trait HasAttributes
     /**
      * @return MonetaAttribute[]
      */
-    public function attributes()
+    protected function attributes()
     {
         return $this->attributesStack;
     }
@@ -53,7 +53,7 @@ trait HasAttributes
      *
      * @return bool
      */
-    public function hasAttributeByType($attributeType)
+    protected function hasAttributeByType($attributeType)
     {
         return isset($this->attributes()[$attributeType]);
     }
@@ -63,7 +63,7 @@ trait HasAttributes
      *
      * @return bool
      */
-    public function hasAttributeByValue($attributeType)
+    protected function hasAttributeByValue($attributeType)
     {
         foreach ($this->attributes() as $attribute) {
             if ($attribute->getValue() === $attributeType) {
@@ -79,7 +79,7 @@ trait HasAttributes
      *
      * @return MonetaAttribute|null
      */
-    public function getAttributeByType($attributeType)
+    protected function getAttributeByType($attributeType)
     {
         if (isset($this->attributes()[$attributeType])) {
             return $this->attributes()[$attributeType];
@@ -88,7 +88,7 @@ trait HasAttributes
         return null;
     }
 
-    public function dropAttribute($attributeName)
+    protected function dropAttribute($attributeName)
     {
         if (isset($this->attributesStack[$attributeName])) {
             unset($this->attributesStack[$attributeName]);

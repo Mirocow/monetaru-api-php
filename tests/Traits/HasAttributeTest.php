@@ -2,6 +2,7 @@
 
 namespace AvtoDev\MonetaApi\Tests\Traits;
 
+use AvtoDev\MonetaApi\Tests\Traits\Mock\TraitMock;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
 /**
@@ -11,6 +12,13 @@ use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
  */
 class HasAttributeTest extends AbstractTraitTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $mock        = new TraitMock;
+        $this->class = \Mockery::mock($mock)->shouldAllowMockingProtectedMethods()->makePartial();
+    }
+
     public function testAttributeSet()
     {
         $this->assertFalse($this->class->hasAttributeByValue('value'));

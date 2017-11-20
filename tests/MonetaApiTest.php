@@ -49,6 +49,7 @@ class MonetaApiTest extends TestCase
     public function testPayRequest()
     {
         $this->assertInstanceOf(PaymentRequest::class, $request = $this->api->payRequest(new Fine));
+        $request = \Mockery::mock($request)->shouldAllowMockingProtectedMethods()->makePartial();
         $this->assertTrue($request->hasAttributeByType('payer'));
         $this->assertInstanceOf(MonetaAttribute::class, $request->getAttributeByType('payer'));
         $this->assertEquals('some', $request->getAttributeByType('payer')->getValue());
@@ -57,6 +58,6 @@ class MonetaApiTest extends TestCase
     public function testBadSettings()
     {
         $this->expectException(MonetaBadSettingsException::class);
-        $api = new Api;
+        new Api;
     }
 }

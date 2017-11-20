@@ -2,6 +2,8 @@
 
 namespace AvtoDev\MonetaApi\Tests\Traits;
 
+use AvtoDev\MonetaApi\Tests\Traits\Mock\TraitMock;
+
 /**
  * Class ConvertToArrayTest.
  *
@@ -11,28 +13,30 @@ class ConvertToArrayTest extends AbstractTraitTestCase
 {
     public function testArray()
     {
-        $this->class->test = $array = ['key' => 'val'];
+        $this->class->setTest($array = ['key' => 'val']);
         $this->assertEquals($array, $this->class->toArray());
     }
 
     public function testJson()
     {
-        $this->class->test = $json = '{"key":"value"}';
+        $this->class->setTest('{"key":"value"}');
         $this->assertEquals(['key' => 'value'], $this->class->toArray());
     }
 
     public function testObject()
     {
-        $this->class->test       = clone $this->class;
-        $this->class->test->test = $json = '{"key":"value"}';
+        $test       = new TraitMock;
+        $test->test = ['key' => 'value'];
+
+        $this->class->setTest($test);
         $this->assertEquals(['key' => 'value'], $this->class->toArray());
     }
 
     public function testOther()
     {
-        $test              = new \stdClass;
-        $test->key         = 'value';
-        $this->class->test = $test;
+        $test      = new \stdClass;
+        $test->key = 'value';
+        $this->class->setTest($test);
         $this->assertEquals(['key' => 'value'], $this->class->toArray());
     }
 }

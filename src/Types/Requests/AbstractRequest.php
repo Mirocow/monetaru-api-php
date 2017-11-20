@@ -66,7 +66,6 @@ abstract class AbstractRequest
         $responseObject = \json_decode($response);
         $responseBody   = $responseObject->Envelope->Body;
         if ($this->httpClient->lastStatusCode() !== 200 || isset($responseBody->fault)) {
-            dump($responseObject);
             throw $this->throwError($responseBody);
         }
 

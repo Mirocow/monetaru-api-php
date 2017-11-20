@@ -27,6 +27,21 @@ class TraitMock
         return $this->convertToCarbon($this->test, $this->dateFormat);
     }
 
+    public function setTest($test)
+    {
+        $this->test = $test;
+    }
+
+    public function setDateFormat($dateFormat)
+    {
+        $this->dateFormat = $dateFormat;
+    }
+
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
     protected function getAccessorStack()
     {
         return $this->config;
