@@ -6,6 +6,11 @@ use PHPUnit\Framework\TestCase;
 use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
+/**
+ * Class FineTest.
+ *
+ * @group types
+ */
 class FineTest extends TestCase
 {
     /**
@@ -17,9 +22,8 @@ class FineTest extends TestCase
 
     protected function setUp()
     {
-        $this->fine = \Mockery::mock(Fine::class)->shouldAllowMockingProtectedMethods()->makePartial();
         $this->json = file_get_contents(__DIR__ . '/Mock/FineExample.json');
-        $this->fine->configure($this->json);
+        $this->fine = new Fine($this->json);
     }
 
     public function testOperationInfo()

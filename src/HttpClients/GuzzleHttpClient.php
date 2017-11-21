@@ -9,42 +9,19 @@ class GuzzleHttpClient implements HttpClientInterface
 {
     protected $client;
 
-    protected $endpoint;
-
-    protected $_lastStatusCode = 0;
-
     /**
      * {@inheritdoc}
      */
-    public function __construct($url)
+    public function __construct($config)
     {
-        $this->endpoint = $url;
-        $this->client   = new Client([
-            'headers' => ['Content-Type' => 'application/json;charset=UTF-8'],
-        ]);
+        $this->client = new Client($config);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function post($json)
+    public function request($method, $uri, $options)
     {
-        $response = $this->client->post($this->endpoint, [
-            'body'        => $json,
-            'timeout'     => 30,
-            'http_errors' => false,
-        ]);
-
-        $this->_lastStatusCode = $response->getStatusCode();
-
-        return $response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function lastStatusCode()
-    {
-        return $this->_lastStatusCode;
+        return $this->client->request($method, $uri, $options);
     }
 }

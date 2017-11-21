@@ -17,7 +17,8 @@ class CommonReference extends AbstractReference
     public static function getAll()
     {
         return [
-            self::DATE_FORMAT,
+            static::DATE_FORMAT,
+            static::PROVIDER_ID,
         ];
     }
 }

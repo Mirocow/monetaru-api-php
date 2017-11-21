@@ -2,51 +2,52 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests;
 
-use AvtoDev\MonetaApi\HttpClientInterface;
-use AvtoDev\MonetaApi\Traits\HasAttributes;
+use AvtoDev\MonetaApi\MonetaApi;
+use AvtoDev\MonetaApi\Traits\FormatPhone;
 use AvtoDev\MonetaApi\Traits\ConvertToCarbon;
+use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
 use AvtoDev\MonetaApi\Exceptions\MonetaServerErrorException;
 
 abstract class AbstractRequest
 {
-    use HasAttributes, ConvertToCarbon;
-
-    protected $header;
-
-    protected $version = 'VERSION_2';
+    use  ConvertToCarbon, FormatPhone;
 
     /**
-     * @var HttpClientInterface
+     * @var AttributeCollection
      */
-    protected $httpClient;
+    protected $attributes;
 
-    protected $methodName = '';
+    protected $version  = 'VERSION_2';
 
-    protected $providerId;
+    protected $methodName;
 
-    protected $required   = [];
+    protected $required = [];
+
+    /**
+     * @var MonetaApi
+     */
+    protected $api;
 
     /**
      * AbstractRequest constructor.
      *
-     * @param HttpClientInterface $httpClient
-     * @param array               $header     Заголовки авторизации
-     * @param string              $providerId
+     * @param MonetaApi $api
      */
-    public function __construct(HttpClientInterface $httpClient, $header, $providerId)
+    public function __construct(MonetaApi $api)
     {
-        $this->httpClient = $httpClient;
-        $this->providerId = $providerId;
-        $this->header     = $header;
+        $this->attributes = new AttributeCollection;
+        $this->api        = $api;
     }
 
-    public function getJson()
+    public function toJson()
     {
+        $this->checkRequired();
+
         $base = [
             'Envelope' => [
-                'Header' => $this->header,
+                'Header' => $this->api->getHeaders(),
                 'Body'   => [
                     $this->methodName => $this->createBody(),
                 ],
@@ -61,21 +62,38 @@ abstract class AbstractRequest
     public function exec()
     {
         $this->checkRequired();
-        $response = $this->httpClient->post($this->getJson());
-
-        $responseObject = \json_decode($response);
+        $response       = $this->api->apiRequest($this);
+        $responseObject = \json_decode($response->getBody()->getContents());
         $responseBody   = $responseObject->Envelope->Body;
-        if ($this->httpClient->lastStatusCode() !== 200 || isset($responseBody->fault)) {
+        if ($response->getStatusCode() !== 200) {
             throw $this->throwError($responseBody);
         }
 
         return $this->prepare($responseBody);
     }
 
+    public function getAttributes()
+    {
+        return $this->attributes->copy();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethodName()
+    {
+        return $this->methodName;
+    }
+
+    /**
+     * Проверка обязательных к запонению аттрибутов.
+     *
+     * @throws MonetaBadRequestException
+     */
     protected function checkRequired()
     {
         foreach ($this->required as $attribute) {
-            if (! $this->hasAttributeByType($attribute)) {
+            if (! $this->attributes->hasByType($attribute)) {
                 throw new MonetaBadRequestException("Не заполнен обязательный атрибут: $attribute", '500.1');
             }
         }

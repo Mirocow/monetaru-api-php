@@ -249,7 +249,7 @@ class Fine extends AbstractType
                     break;
             }
             if ($key !== FineReference::FIELD_CONTENT && in_array($key, FineReference::getAll())) {
-                $this->pushAttribute(new MonetaAttribute($key, $value));
+                $this->attributes->push(new MonetaAttribute($key, $value));
             }
         }
     }
@@ -363,7 +363,7 @@ class Fine extends AbstractType
     {
         $attributes = [];
         foreach (OperationInfoPaymentRequestReference::getAll() as $type) {
-            $attribute = $this->getAttributeByType($type);
+            $attribute = $this->attributes->getByType($type);
             if ($attribute) {
                 $attributes[] = $attribute;
             }

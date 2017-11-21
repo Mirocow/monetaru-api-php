@@ -16,13 +16,13 @@ class PaymentBatchRequest extends AbstractRequest
                                 $providerId)
     {
         parent::__construct($httpClient, $header, $providerId);
-        $this->pushAttribute(new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_TRANSACTIONAL, 1));
-        $this->pushAttribute(new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_EXIT_ON_FAILURE, 1));
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_TRANSACTIONAL, 1));
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_EXIT_ON_FAILURE, 1));
     }
 
     public function transactional($isTransactional = true)
     {
-        $this->pushAttribute(
+        $this->attributes->push(
             new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_TRANSACTIONAL, $isTransactional)
         );
 
@@ -31,7 +31,7 @@ class PaymentBatchRequest extends AbstractRequest
 
     public function exitOnFailure($isExitOnFailure = true)
     {
-        $this->pushAttribute(
+        $this->attributes->push(
             new MonetaAttribute(PaymentRequestReference::TRANSACTION_FIELD_EXIT_ON_FAILURE, $isExitOnFailure)
         );
 
@@ -49,7 +49,7 @@ class PaymentBatchRequest extends AbstractRequest
         /** @var Fine $fine */
         foreach ($fines as $fine) {
             $request = new PaymentRequest($this->httpClient, $this->header, $this->providerId, $fine);
-            $body[]  = $request->getJson();
+            $body[]  = $request->toJson();
         }
     }
 

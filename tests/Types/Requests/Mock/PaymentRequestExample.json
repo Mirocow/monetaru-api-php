@@ -1,0 +1,117 @@
+{
+  "Envelope": {
+    "Header": {
+      "Security": {
+        "UsernameToken": {
+          "Username": "i",
+          "Password": "need"
+        }
+      }
+    },
+    "Body": {
+      "PaymentRequest": {
+        "version": "VERSION_2",
+        "operationInfo": {
+          "attribute": [
+            {
+              "key": "id",
+              "value": "123456789"
+            },
+            {
+              "key": "amount",
+              "value": 800
+            },
+            {
+              "key": "label",
+              "value": "\u0423\u0418\u041d 123456789 \u043e\u0442 2017-10-13 \u043d\u0430 800.00 \u0440\u0443\u0431."
+            },
+            {
+              "key": "CUSTOMFIELD:BILLDATE",
+              "value": "2017-10-13"
+            },
+            {
+              "key": "CUSTOMFIELD:SOINAME",
+              "value": "\u041e\u0413\u0418\u0411\u0414\u0414 \u041c\u041e \u041c\u0412\u0414 \u0420\u043e\u0441\u0441\u0438\u0438"
+            },
+            {
+              "key": "WIREUSERINN",
+              "value": "6607005515"
+            },
+            {
+              "key": "WIREKPP",
+              "value": "660701001"
+            },
+            {
+              "key": "WIREBANKACCOUNT",
+              "value": "40101810500000010010"
+            },
+            {
+              "key": "WIREBANKNAME",
+              "value": "\u0423\u0440\u0430\u043b\u044c\u0441\u043a\u043e\u0435 \u0413\u0423 \u0411\u0430\u043d\u043a\u0430 \u0420\u043e\u0441\u0441\u0438\u0438"
+            },
+            {
+              "key": "WIREBANKBIK",
+              "value": "046577001"
+            },
+            {
+              "key": "WIREPAYMENTPURPOSE",
+              "value": "\u0428\u0422\u0420\u0410\u0424 \u041f\u041e \u0410\u0414\u041c\u0418\u041d\u0418\u0421\u0422\u0420\u0410\u0422\u0418\u0412\u041d\u041e\u041c\u0423 \u041f\u0420\u0410\u0412\u041e\u041d\u0410\u0420\u0423\u0428\u0415\u041d\u0418\u042e \u041f\u041e\u0421\u0422\u0410\u041d\u041e\u0412\u041b\u0415\u041d\u0418\u0415 \u2116123456789"
+            },
+            {
+              "key": "WIREUSERNAME",
+              "value": "\u0423\u0424\u041a \u043f\u043e \u0421\u0432\u0435\u0440\u0434\u043b\u043e\u0432\u0441\u043a\u043e\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0438"
+            },
+            {
+              "key": "WIREKBK",
+              "value": "18811630020016000140"
+            },
+            {
+              "key": "WIREOKTMO",
+              "value": "65708000"
+            },
+            {
+              "key": "WIREALTPAYERIDENTIFIER",
+              "value": "2200000000000000000000643"
+            },
+            {
+              "key": "CUSTOMFIELD:SIGN",
+              "value": "28ef2e759cd88cdf6ad5b053a3c660c59a13441c7ce67dfba88dc94112a060ad"
+            },
+            {
+              "key": "CUSTOMFIELD:TOTALAMOUNT",
+              "value": "800.00"
+            },
+            {
+              "key": "CUSTOMFIELD:DISCOUNTSIZE",
+              "value": "50"
+            },
+            {
+              "key": "CUSTOMFIELD:DISCOUNTDATE",
+              "value": "2017-11-02"
+            },
+            {
+              "key": "CUSTOMFIELD:105",
+              "value": "123456789"
+            },
+            {
+              "key": "SUBPROVIDERID",
+              "value": "1"
+            },
+            {
+              "key": "CUSTOMFIELD:PHONE",
+              "value": "8 (987) 654-32-10"
+            },
+            {
+              "key": "WIREPAYER",
+              "value": "\u041d\u0435\u043a\u0442\u043e \u0441 \u0438\u043c\u0435\u043d\u0435\u043c"
+            }
+          ]
+        },
+        "payer": "some",
+        "payee": "9171",
+        "isPayerAmount": false,
+        "amount": "800.00"
+      }
+    }
+  }
+}

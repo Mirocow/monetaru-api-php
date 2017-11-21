@@ -37,7 +37,7 @@ class Provider extends AbstractType
                     break;
             }
             if (in_array($key, ProviderReference::getAll())) {
-                $this->pushAttribute(new MonetaAttribute($key, $value));
+                $this->attributes->push(new MonetaAttribute($key, $value));
             }
         }
     }

@@ -5,27 +5,31 @@ namespace AvtoDev\MonetaApi\Tests\Types;
 use PHPUnit\Framework\TestCase;
 use AvtoDev\MonetaApi\Types\Provider;
 
+/**
+ * Class ProviderTest.
+ *
+ * @group types
+ */
 class ProviderTest extends TestCase
 {
     /**
      * @var Provider;
      */
-    protected $fine;
+    protected $provider;
 
     protected $json;
 
     protected function setUp()
     {
-        $this->fine = \Mockery::mock(Provider::class)->shouldAllowMockingProtectedMethods()->makePartial();
-        $this->json = file_get_contents(__DIR__ . '/Mock/ProviderExample.json');
-        $this->fine->configure($this->json);
+        $this->json     = file_get_contents(__DIR__ . '/Mock/ProviderExample.json');
+        $this->provider = new Provider($this->json);
     }
 
     public function testGeters()
     {
-        $this->assertNotNull($this->fine->getId());
-        $this->assertNotNull($this->fine->getSubProviderId());
-        $this->assertNotNull($this->fine->getName());
-        $this->assertNotNull($this->fine->gettargetAccountId());
+        $this->assertNotNull($this->provider->getId());
+        $this->assertNotNull($this->provider->getSubProviderId());
+        $this->assertNotNull($this->provider->getName());
+        $this->assertNotNull($this->provider->gettargetAccountId());
     }
 }

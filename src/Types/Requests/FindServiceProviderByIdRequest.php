@@ -8,9 +8,11 @@ use AvtoDev\MonetaApi\References\ProviderRequestReference;
 
 class FindServiceProviderByIdRequest extends AbstractRequest
 {
-    public $providerId;
-
     protected $methodName = 'FindServiceProviderByIdRequest';
+
+    protected $required   = [
+        ProviderRequestReference::FIELD_PROVIDER_ID,
+    ];
 
     public function prepare($response)
     {
@@ -19,8 +21,7 @@ class FindServiceProviderByIdRequest extends AbstractRequest
 
     public function byId($id)
     {
-        $this->providerId = $id;
-        $this->pushAttribute(new MonetaAttribute(ProviderRequestReference::FIELD_PROVIDER_ID, $id));
+        $this->attributes->push(new MonetaAttribute(ProviderRequestReference::FIELD_PROVIDER_ID, $id));
 
         return $this;
     }
@@ -28,7 +29,7 @@ class FindServiceProviderByIdRequest extends AbstractRequest
     protected function createBody()
     {
         return [
-            'providerId' => $this->providerId,
+            'providerId' => $this->attributes->getByType(ProviderRequestReference::FIELD_PROVIDER_ID)->getValue(),
             'version'    => $this->version,
         ];
     }

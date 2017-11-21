@@ -1,0 +1,568 @@
+{
+  "Envelope": {
+    "Body": {
+      "FindServiceProviderByIdResponse": {
+        "provider": {
+          "firstStep": "PRE",
+          "limit": {
+            "min": 0,
+            "max": 100000
+          },
+          "id": "9171.1",
+          "targetAccountId": 9171,
+          "name": "Оплата штрафов ГИБДД 3998 (Федеральное Казначейство)",
+          "active": true,
+          "attributes": {
+            "attribute": [
+              {
+                "name": "INN",
+                "value": "1215192632"
+              }
+            ]
+          },
+          "subProviderId": 1,
+          "fields": {
+            "field": [
+              {
+                "id": 141,
+                "orderBy": 25,
+                "temporary": true,
+                "label": "Общая сумма начисления",
+                "attribute-name": "CUSTOMFIELD:TOTALAMOUNT",
+                "type": "TEXT",
+                "comment": ""
+              },
+              {
+                "id": 140,
+                "orderBy": 26,
+                "temporary": true,
+                "enum": {
+                  "item": [
+                    {
+                      "id": "true",
+                      "value": "Оплачено"
+                    },
+                    {
+                      "id": "false",
+                      "value": "Не оплачено"
+                    }
+                  ]
+                },
+                "label": "Статус начисления",
+                "attribute-name": "CUSTOMFIELD:ISPAID",
+                "type": "ENUM",
+                "comment": ""
+              },
+              {
+                "id": 200,
+                "orderBy": 1,
+                "hidden": false,
+                "temporary": true,
+                "enum": {
+                  "item": [
+                    {
+                      "id": "1",
+                      "value": "по личным данным"
+                    },
+                    {
+                      "id": "0",
+                      "value": "по УИН"
+                    },
+                    {
+                      "id": "5",
+                      "value": "по альтернативному идентификатору"
+                    }
+                  ]
+                },
+                "label": "Способ поиска постановления",
+                "attribute-name": "CUSTOMFIELD:200",
+                "steps": [
+                  "PRE"
+                ],
+                "required": true,
+                "type": "ENUM",
+                "comment": "",
+                "readonly": false
+              },
+              {
+                "id": 143,
+                "orderBy": 27,
+                "hidden": false,
+                "temporary": false,
+                "label": "Дата действия скидки",
+                "attribute-name": "CUSTOMFIELD:DISCOUNTDATE",
+                "steps": [
+                  "PAY"
+                ],
+                "required": false,
+                "type": "TEXT",
+                "comment": "",
+                "readonly": true
+              },
+              {
+                "id": 142,
+                "orderBy": 26,
+                "hidden": false,
+                "temporary": false,
+                "label": "Размер скидки (%)",
+                "attribute-name": "CUSTOMFIELD:DISCOUNTSIZE",
+                "steps": [
+                  "PAY"
+                ],
+                "required": false,
+                "type": "TEXT",
+                "comment": "",
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 129,
+                "temporary": false,
+                "attribute-name": "WIREKBK",
+                "label": "КБК",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 129,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 128,
+                "temporary": false,
+                "attribute-name": "WIREUSERNAME",
+                "label": "Наименование получателя платежа",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 128,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 131,
+                "temporary": false,
+                "attribute-name": "WIREDOCINDEX",
+                "label": "УИН",
+                "steps": [],
+                "type": "TEXT",
+                "id": 131,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 130,
+                "temporary": false,
+                "attribute-name": "WIREOKTMO",
+                "label": "ОКТМО (ОКАТО)",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 130,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 1,
+                "orderBy": 133,
+                "temporary": false,
+                "attribute-name": "CUSTOMFIELD:SIGN",
+                "label": "Сигнатура начисления",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 133,
+                "maxlength": 256,
+                "hidden": true,
+                "comment": "",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "minlength": 0,
+                "orderBy": 132,
+                "temporary": false,
+                "attribute-name": "WIREALTPAYERIDENTIFIER",
+                "label": "Альтернативный идентификатор плательщика",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 132,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "id": 144,
+                "orderBy": 28,
+                "temporary": true,
+                "label": "Статья",
+                "attribute-name": "CUSTOMFIELD:ARTICLECODE",
+                "type": "TEXT",
+                "comment": ""
+              },
+              {
+                "id": 145,
+                "orderBy": 29,
+                "temporary": true,
+                "label": "Место правонарушения",
+                "attribute-name": "CUSTOMFIELD:LOCATION",
+                "type": "TEXT",
+                "comment": ""
+              },
+              {
+                "minlength": 10,
+                "orderBy": 102,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:102",
+                "label": "Номер свидетельства о регистрации ТС",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "TEXT",
+                "dependency": "{200}==\"1\"",
+                "id": 102,
+                "maxlength": 110,
+                "pattern": "^((?!1234567890)(?!(\\d)\\2{8}\\d)[0-9A-Za-zА-я]{10,12};?)+$",
+                "hidden": false,
+                "comment": "Свидетельством о регистрации ТС является ламинированная карточка светло-фиолетового цвета. Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 77ТС123456;78ТС654321",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "minlength": 10,
+                "orderBy": 103,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:103",
+                "label": "Номер водительского удостоверения",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "TEXT",
+                "dependency": "{200}==\"1\"",
+                "id": 103,
+                "maxlength": 110,
+                "pattern": "^((?!1234567890)(?!(\\d)\\2{8}\\d)[0-9A-Za-zА-я]{10,12};?)+$",
+                "hidden": false,
+                "comment": "Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 90ТС654321;91ТС123456",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "minlength": 20,
+                "orderBy": 2,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:101",
+                "label": "Уникальный идентификатор начисления",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "TEXT",
+                "dependency": "{200}==\"0\"",
+                "id": 101,
+                "maxlength": 260,
+                "pattern": "^(([0-9A-Za-zА-я]{20}|[0-9]{25})(;)?)+$",
+                "hidden": false,
+                "comment": "Возможно указание нескольких идентификаторов через разделитель \";\"",
+                "required": true,
+                "readonly": false
+              },
+              {
+                "minlength": 1,
+                "orderBy": 20,
+                "temporary": false,
+                "attribute-name": "WIREPAYER",
+                "label": "ФИО плательщика",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 110,
+                "maxlength": 128,
+                "hidden": false,
+                "comment": "<b>Внимание! Вводите фамилию имя отчество ПОЛНОСТЬЮ!<\/b>",
+                "required": true,
+                "readonly": false
+              },
+              {
+                "minlength": 20,
+                "orderBy": 108,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:108",
+                "label": "Альтернативный идентификатор плательщика",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "TEXT",
+                "dependency": "{200}==\"5\"",
+                "id": 108,
+                "maxlength": 275,
+                "pattern": "^([0-9A-Za-zА-я]{20,25}(;)?)+$",
+                "hidden": false,
+                "comment": "Номер вводится без пробелов или разделителей. Возможно указание нескольких номеров через разделитель \";\". Пример: 24000000000012УН345678643;24000000000023УН456789643",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "id": 109,
+                "orderBy": 19,
+                "hidden": false,
+                "temporary": false,
+                "mask": "8 (***) ***-**-**",
+                "label": "Контактный телефон плательщика",
+                "attribute-name": "CUSTOMFIELD:PHONE",
+                "steps": [
+                  "PAY"
+                ],
+                "required": true,
+                "type": "INTEGER",
+                "comment": "",
+                "readonly": false
+              },
+              {
+                "minlength": 0,
+                "orderBy": 18,
+                "temporary": false,
+                "attribute-name": "CUSTOMFIELD:105",
+                "label": "Постановление",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "ENUM",
+                "id": 105,
+                "maxlength": 30,
+                "hidden": false,
+                "comment": "",
+                "required": true,
+                "readonly": false
+              },
+              {
+                "id": 114,
+                "orderBy": 114,
+                "hidden": false,
+                "temporary": true,
+                "enum": {
+                  "item": [
+                    {
+                      "id": "CHARGE",
+                      "value": "Неоплаченные"
+                    },
+                    {
+                      "id": "CHARGESTATUS",
+                      "value": "Оплаченные и неоплаченные"
+                    }
+                  ]
+                },
+                "label": "Статус начислений",
+                "attribute-name": "CUSTOMFIELD:114",
+                "steps": [
+                  "PRE"
+                ],
+                "required": false,
+                "type": "ENUM",
+                "comment": "",
+                "readonly": false
+              },
+              {
+                "minlength": 10,
+                "orderBy": 113,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:113",
+                "label": "Конечная дата \"окна\" поиска",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "DATE",
+                "dependency": "{200}==\"1\"",
+                "id": 113,
+                "maxlength": 10,
+                "hidden": false,
+                "dateformat": "dd.MM.yyyy",
+                "comment": "Дата в формате ДД.ММ.ГГГГ Пример: 31.12.2012",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "minlength": 10,
+                "orderBy": 112,
+                "temporary": true,
+                "attribute-name": "CUSTOMFIELD:112",
+                "label": "Начальная дата \"окна\" поиска",
+                "steps": [
+                  "PRE"
+                ],
+                "type": "DATE",
+                "dependency": "{200}==\"1\"",
+                "id": 112,
+                "maxlength": 10,
+                "hidden": false,
+                "dateformat": "dd.MM.yyyy",
+                "comment": "Дата в формате ДД.ММ.ГГГГ Пример: 31.12.2012",
+                "required": false,
+                "readonly": false
+              },
+              {
+                "minlength": 0,
+                "orderBy": 127,
+                "temporary": false,
+                "attribute-name": "WIREPAYMENTPURPOSE",
+                "label": "Назначение платежа",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 127,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 126,
+                "temporary": false,
+                "attribute-name": "WIREBANKBIK",
+                "label": "БИК",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 126,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 125,
+                "temporary": false,
+                "attribute-name": "WIREBANKACCOUNT",
+                "label": "Номер счета получателя платежа",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 125,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 124,
+                "temporary": false,
+                "attribute-name": "WIREBANKNAME",
+                "label": "Наименование банка получателя платежа",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 124,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 123,
+                "temporary": false,
+                "attribute-name": "WIREKPP",
+                "label": "КПП получателя",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 123,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 122,
+                "temporary": false,
+                "attribute-name": "WIREUSERINN",
+                "label": "ИНН получателя",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 122,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 121,
+                "temporary": false,
+                "attribute-name": "CUSTOMFIELD:BILLDATE",
+                "label": "Дата постановления",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 121,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              },
+              {
+                "minlength": 0,
+                "orderBy": 120,
+                "temporary": false,
+                "attribute-name": "CUSTOMFIELD:SOINAME",
+                "label": "Администратор начисления",
+                "steps": [
+                  "PAY"
+                ],
+                "type": "TEXT",
+                "id": 120,
+                "maxlength": 256,
+                "hidden": false,
+                "comment": "",
+                "required": false,
+                "readonly": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

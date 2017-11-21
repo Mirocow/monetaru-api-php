@@ -3,7 +3,6 @@
 namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\Types\Fine;
-use AvtoDev\MonetaApi\References\CommonReference;
 use AvtoDev\MonetaApi\References\FinesRequestReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
@@ -21,34 +20,34 @@ class FinesRequest extends AbstractRequest
 
     public function bySTS($sts)
     {
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_PERSONAL));
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_BY_STS, $sts));
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_STS, $sts));
 
         return $this;
     }
 
     public function byUin($uin)
     {
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_UIN));
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_BY_UIN, $uin));
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_UIN, $uin));
 
         return $this;
     }
 
     public function byDriverLicense($driverLicense)
     {
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_PERSONAL));
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::SEARCH_BY_DRIVE_LICENCE, $driverLicense));
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_DRIVE_LICENCE, $driverLicense));
 
         return $this;
     }
 
     public function includeNonPaid()
     {
-        $this->pushAttribute(new MonetaAttribute(FinesRequestReference::CHARGE_STATUS,
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::CHARGE_STATUS,
             FinesRequestReference::CHARGE_STATUS_BOTH));
 
         return $this;
@@ -73,8 +72,7 @@ class FinesRequest extends AbstractRequest
                 && isset($field->enum) && is_array($field->enum->complexItem)
             ) {
                 foreach ($field->enum->complexItem as $complexItem) {
-                    $fine = new Fine($complexItem);
-                    $fine->configure([CommonReference::PROVIDER_ID, $this->providerId]);
+                    $fine     = new Fine($complexItem);
                     $return[] = $fine;
                 }
             }
@@ -86,7 +84,7 @@ class FinesRequest extends AbstractRequest
     public function dateFrom($date_time)
     {
         $carbon = $this->convertToCarbon($date_time);
-        $this->pushAttribute(
+        $this->attributes->push(
             new MonetaAttribute(
                 FinesRequestReference::DATE_FROM, $carbon->format(FinesRequestReference::DATE_FORMAT)
             )
@@ -98,7 +96,7 @@ class FinesRequest extends AbstractRequest
     public function dateTo($date_time)
     {
         $carbon = $this->convertToCarbon($date_time);
-        $this->pushAttribute(
+        $this->attributes->push(
             new MonetaAttribute(
                 FinesRequestReference::DATE_TO, $carbon->format(FinesRequestReference::DATE_FORMAT)
             )
@@ -110,13 +108,13 @@ class FinesRequest extends AbstractRequest
     protected function createBody()
     {
         $attributes = [];
-        foreach ($this->attributes() as $attribute) {
+        foreach ($this->attributes as $attribute) {
             $attributes[] = $attribute->toAttribute('name');
         }
 
         return [
             'version'    => $this->version,
-            'providerId' => $this->providerId,
+            'providerId' => $this->api->getConfigValue('fine_provider_id'),
             'fieldsInfo' => [
                 'attribute' => $attributes,
             ],

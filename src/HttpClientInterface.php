@@ -7,23 +7,16 @@ interface HttpClientInterface
     /**
      * HttpClientInterface constructor.
      *
-     * @param string $url endpoint url
+     * @param array $config
      */
-    public function __construct($url);
+    public function __construct($config);
 
     /**
-     * Send post request.
+     * @param $method
+     * @param $uri
+     * @param $options
      *
-     * @param string $json json request
-     *
-     * @return mixed
+     * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post($json);
-
-    /**
-     * Return request status code.
-     *
-     * @return int
-     */
-    public function lastStatusCode();
+    public function request($method, $uri, $options);
 }
