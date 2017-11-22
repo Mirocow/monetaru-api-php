@@ -1,0 +1,13 @@
+{
+  "Envelope": {
+    "Body": {
+      "fault": {
+        "faultstring": "Произошла ошибка в системе ГИС ГМП. Просим Вас повторить запрос позже",
+        "faultcode": "Server",
+        "detail": {
+          "faultDetail": "500.4.4.3"
+        }
+      }
+    }
+  }
+}

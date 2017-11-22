@@ -2,36 +2,14 @@
 
 namespace AvtoDev\MonetaApi\Support;
 
-use AvtoDev\MonetaApi\Support\Contracts\Collection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
-class AttributeCollection implements Collection
+class AttributeCollection extends AbstractCollection
 {
+    /**
+     * @var MonetaAttribute[]
+     */
     protected $stack = [];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function clear()
-    {
-        $this->stack = [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function copy()
-    {
-        return clone $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isEmpty()
-    {
-        return ($this->count() === 0);
-    }
 
     /**
      * {@inheritdoc}
@@ -39,14 +17,6 @@ class AttributeCollection implements Collection
     public function count()
     {
         return count($this->stack);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        return $this->stack;
     }
 
     /**

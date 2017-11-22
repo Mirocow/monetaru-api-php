@@ -22,8 +22,8 @@ trait FormatPhone
     {
         $phone = $this->normalizePhone($phone);
         preg_match('/^\d(\d{3})(\d{3})(\d{2})(\d{2})$/', $phone, $matches);
-        $result = '8 (' . $matches[1] . ') ' . $matches[2] . '-' . $matches[3] . '-' . $matches[4];
+        $phone = '8 (' . $matches[1] . ') ' . $matches[2] . '-' . $matches[3] . '-' . $matches[4];
 
-        return $result;
+        return $phone;
     }
 }

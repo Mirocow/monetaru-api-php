@@ -1,16 +1,17 @@
 <?php
 
-namespace AvtoDev\MonetaApi\Types\Requests;
+namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 
-use AvtoDev\MonetaApi\MonetaApi;
 use AvtoDev\MonetaApi\Types\Fine;
+use AvtoDev\MonetaApi\Types\Payment;
+use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\PaymentRequestReference;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
 
-class PaymentRequest extends AbstractRequest
+class PaymentRequest extends AbstractPaymentRequest
 {
     protected $methodName = 'PaymentRequest';
 
@@ -33,27 +34,37 @@ class PaymentRequest extends AbstractRequest
         OperationInfoPaymentRequestReference::PAYER_FIO,
     ];
 
+    /**
+     * PaymentRequest constructor.
+     *
+     * @param MonetaApi $api
+     */
     public function __construct(
-        MonetaApi $api,
-        Fine $fine
+        MonetaApi $api
+
     ) {
         parent::__construct($api);
         $this->operationInfo = new AttributeCollection;
-
-        $this->setAccountNumber($api->getConfigValue('accounts.fines_account'));
-        $this->attributes->push(
-            new MonetaAttribute(
-                PaymentRequestReference::FIELD_PAYEE,
-                $this->api->getConfigValue('accounts.provider.id')
-            )
-        );
-        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_IS_PAYER_AMOUNT, false));
-        $this->buildFromFine($fine);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return Payment
+     */
+    public function exec()
+    {
+        return parent::exec();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Payment
+     */
     public function prepare($response)
     {
-        // @todo: Implement prepare() method.
+        return new Payment($response->PaymentResponse);
     }
 
     /**
@@ -66,7 +77,34 @@ class PaymentRequest extends AbstractRequest
      */
     public function setAccountNumber($accountNumber)
     {
-        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYER, trim($accountNumber)));
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYER,
+            (string) trim($accountNumber)));
+
+        return $this;
+    }
+
+    public function setPaymentPassword($password)
+    {
+        if (! empty($password)) {
+            $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYMENT_PASSWORD,
+                (string) trim($password)));
+        }
+
+        return $this;
+    }
+
+    public function setIsPayerAmount($isPayerAmount = true)
+    {
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_IS_PAYER_AMOUNT, (bool)
+        $isPayerAmount));
+
+        return $this;
+    }
+
+    public function setDestinationAccount($accountNumber)
+    {
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYEE,
+            (string) trim($accountNumber)));
 
         return $this;
     }
@@ -81,7 +119,8 @@ class PaymentRequest extends AbstractRequest
      */
     public function setPayerFio($fio)
     {
-        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_FIO, trim($fio)));
+        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_FIO,
+            (string) trim($fio)));
 
         return $this;
     }
@@ -102,32 +141,44 @@ class PaymentRequest extends AbstractRequest
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function checkRequired()
+    public function setFine(Fine $fine)
     {
-        parent::checkRequired();
-        foreach ($this->operationInfoRequired as $attribute) {
-            if (! $this->operationInfo->hasByType($attribute)) {
-                throw new MonetaBadRequestException("Не заполнен обязательный атрибут: $attribute", '500.1');
-            }
-        }
-    }
-
-    protected function buildFromFine(Fine $fine)
-    {
-        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_AMOUNT, $fine->getTotalAmount()));
+        $this->setAmount($fine->getAmount());
 
         foreach ($fine->getOperationInfo() as $attribute) {
             $this->operationInfo->push($attribute);
         }
 
         $this->operationInfo->push(
-            new MonetaAttribute(OperationInfoPaymentRequestReference::FIELD_UIN, $fine->getId())
+            new MonetaAttribute(OperationInfoPaymentRequestReference::FIELD_UIN, (string) $fine->getId())
         );
 
-        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::SUB_PROVIDER_ID, '1'));
+        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::SUB_PROVIDER_ID,
+            (string) $this->api->getConfigValue('accounts.provider.sub_id')));
+
+        return $this;
+    }
+
+    public function setAmount($amount)
+    {
+        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_AMOUNT, (float) $amount));
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function checkRequired()
+    {
+        parent::checkRequired();
+        if (! $this->operationInfo->isEmpty()) {
+            foreach ($this->operationInfoRequired as $attribute) {
+                if (! $this->operationInfo->hasByType($attribute)) {
+                    throw new MonetaBadRequestException("Не заполнен обязательный атрибут: $attribute", '500.1');
+                }
+            }
+        }
     }
 
     /**

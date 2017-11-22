@@ -3,7 +3,7 @@
 namespace AvtoDev\MonetaApi\Tests\Types\Requests;
 
 use PHPUnit\Framework\TestCase;
-use AvtoDev\MonetaApi\MonetaApi;
+use AvtoDev\MonetaApi\Clients\MonetaApi;
 
 abstract class AbstractRequestTestCase extends TestCase
 {
@@ -12,21 +12,26 @@ abstract class AbstractRequestTestCase extends TestCase
      */
     protected $api;
 
-    protected $config = [
-        'authorization' => [
-            'username' => 'i',
-            'password' => 'need',
-        ],
-        'accounts'      => [
-            'fines_account'      => 'some',
-            'commission_account' => 'body',
-        ],
-        'is_test'       => true,
-    ];
+    protected $config = [];
 
     protected function setUp()
     {
         parent::setUp();
-        $this->api = new MonetaApi($this->config);
+        $this->config = [
+            'authorization' => [
+                'username' => 'i',
+                'password' => 'need',
+            ],
+            'accounts'      => [
+                'fines'      => [
+                    'id' => 'some',
+                ],
+                'commission' => [
+                    'id' => 'body',
+                ],
+            ],
+            'is_test'       => true,
+        ];
+        $this->api    = new MonetaApi($this->config);
     }
 }

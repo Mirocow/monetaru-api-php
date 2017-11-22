@@ -2,8 +2,9 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests;
 
-use AvtoDev\MonetaApi\MonetaApi;
+use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Traits\FormatPhone;
+use AvtoDev\MonetaApi\Traits\ConvertToArray;
 use AvtoDev\MonetaApi\Traits\ConvertToCarbon;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
@@ -12,7 +13,7 @@ use AvtoDev\MonetaApi\Exceptions\MonetaServerErrorException;
 
 abstract class AbstractRequest
 {
-    use  ConvertToCarbon, FormatPhone;
+    use  ConvertToArray, ConvertToCarbon, FormatPhone;
 
     /**
      * @var AttributeCollection
@@ -41,7 +42,7 @@ abstract class AbstractRequest
         $this->api        = $api;
     }
 
-    public function toJson()
+    public function toJson($options = 0)
     {
         $this->checkRequired();
 
@@ -54,7 +55,7 @@ abstract class AbstractRequest
             ],
         ];
 
-        return \json_encode($base);
+        return json_encode($base, $options);
     }
 
     abstract public function prepare($response);
@@ -63,9 +64,9 @@ abstract class AbstractRequest
     {
         $this->checkRequired();
         $response       = $this->api->apiRequest($this);
-        $responseObject = \json_decode($response->getBody()->getContents());
+        $responseObject = json_decode($response->getBody()->getContents());
         $responseBody   = $responseObject->Envelope->Body;
-        if ($response->getStatusCode() !== 200) {
+        if ($response->getStatusCode() !== 200 || isset($responseBody->fault)) {
             throw $this->throwError($responseBody);
         }
 

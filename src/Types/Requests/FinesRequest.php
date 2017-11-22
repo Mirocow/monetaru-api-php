@@ -3,6 +3,7 @@
 namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\Types\Fine;
+use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\References\FinesRequestReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
@@ -45,7 +46,7 @@ class FinesRequest extends AbstractRequest
         return $this;
     }
 
-    public function includeNonPaid()
+    public function includePaid()
     {
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::CHARGE_STATUS,
             FinesRequestReference::CHARGE_STATUS_BOTH));
@@ -54,13 +55,23 @@ class FinesRequest extends AbstractRequest
     }
 
     /**
+     * @return Fine[]|FineCollection
+     */
+    public function exec()
+    {
+        return parent::exec();
+    }
+
+    /**
+     * @todo Переписать
+     *
      * @param $response
      *
-     * @return Fine[]
+     * @return Fine[]|FineCollection
      */
     public function prepare($response)
     {
-        $return = [];
+        $return = new FineCollection;
 
         if (! isset($response->GetNextStepResponse->nextStep) || $response->GetNextStepResponse->nextStep != 'PAY') {
             return $return;
@@ -72,8 +83,8 @@ class FinesRequest extends AbstractRequest
                 && isset($field->enum) && is_array($field->enum->complexItem)
             ) {
                 foreach ($field->enum->complexItem as $complexItem) {
-                    $fine     = new Fine($complexItem);
-                    $return[] = $fine;
+                    $fine = new Fine($complexItem);
+                    $return->push($fine);
                 }
             }
         }

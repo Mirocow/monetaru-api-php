@@ -1,0 +1,13 @@
+{
+  "Envelope": {
+    "Body": {
+      "fault": {
+        "detail": {
+          "faultDetail": "500.4.1.2"
+        },
+        "faultcode": "Client",
+        "faultstring": "Некорректный формат поля \"Контактный телефон плательщика\""
+      }
+    }
+  }
+}

@@ -3,7 +3,9 @@
 namespace AvtoDev\MonetaApi\Tests\Types\Requests;
 
 use AvtoDev\MonetaApi\Types\Fine;
-use AvtoDev\MonetaApi\Types\Requests\PaymentRequest;
+use AvtoDev\MonetaApi\Types\Payment;
+use AvtoDev\MonetaApi\References\PaymentRequestReference;
+use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentRequest;
 
 /**
  * Class PaymentRequestTest.
@@ -21,8 +23,15 @@ class PaymentRequestTest extends AbstractRequestTestCase
         parent::setUp();
         $json          = file_get_contents(realpath('tests/Types/Mock/FineExample.json'));
         $fine          = new Fine($json);
-        $builder       = new PaymentRequest($this->api, $fine);
+        $builder       = $this->api->payments()->payOne($fine);
         $this->builder = \Mockery::mock($builder);
+    }
+
+    public function testSetPaymentPassword()
+    {
+        $this->builder->setPaymentPassword($password = '123456789');
+        $this->assertEquals($password,
+            $this->builder->getAttributes()->getByType(PaymentRequestReference::FIELD_PAYMENT_PASSWORD)->getValue());
     }
 
     public function testCreate()
@@ -31,5 +40,12 @@ class PaymentRequestTest extends AbstractRequestTestCase
 
         $this->assertJsonStringEqualsJsonString($json,
             $this->builder->setPayerPhone(89876543210)->setPayerFio('Некто с именем')->toJson());
+    }
+
+    public function testExec()
+    {
+        $this->assertInstanceOf(Payment::class, $payment =
+            $this->builder->setPayerPhone(89876543210)->setPayerFio('Некто с именем')->exec());
+        $this->assertEquals(481587, $payment->getId());
     }
 }

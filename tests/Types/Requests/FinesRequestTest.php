@@ -4,6 +4,7 @@ namespace AvtoDev\MonetaApi\Tests\Types\Requests;
 
 use Mockery\MockInterface;
 use AvtoDev\MonetaApi\Types\Fine;
+use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 
@@ -33,7 +34,7 @@ class FinesRequestTest extends AbstractRequestTestCase
         $searchMethod   = 'CUSTOMFIELD:200';
         $byUinAttribute = 'CUSTOMFIELD:101';
 
-        $response = $this->builder->byUin($uin)->includeNonPaid()->exec();
+        $response = $this->builder->byUin($uin)->includePaid()->exec();
         $this->assertTrue($this->builder->getAttributes()->hasByType($searchMethod));
         $this->assertTrue($this->builder->getAttributes()->hasByType($searchMethod));
         $this->assertEquals(0, $this->builder->getAttributes()->getByType($searchMethod)->getValue());
@@ -41,7 +42,8 @@ class FinesRequestTest extends AbstractRequestTestCase
         $this->assertTrue($this->builder->getAttributes()->hasByType($byUinAttribute));
         $this->assertEquals($uin, $this->builder->getAttributes()->getByType($byUinAttribute)->getValue());
 
-        $this->assertTrue(is_array($response));
+        $this->assertInstanceOf(FineCollection::class, ($response));
+        $this->assertNotEmpty(($response));
         foreach ($response as $fine) {
             $this->assertInstanceOf(Fine::class, $fine);
         }
@@ -61,7 +63,8 @@ class FinesRequestTest extends AbstractRequestTestCase
         $this->assertTrue($this->builder->getAttributes()->hasByType($byStsAttribute));
         $this->assertEquals($sts, $this->builder->getAttributes()->getByType($byStsAttribute)->getValue());
 
-        $this->assertTrue(is_array($response));
+        $this->assertInstanceOf(FineCollection::class, ($response));
+        $this->assertNotEmpty(($response));
         foreach ($response as $fine) {
             $this->assertInstanceOf(Fine::class, $fine);
         }
@@ -82,7 +85,8 @@ class FinesRequestTest extends AbstractRequestTestCase
         $this->assertEquals($license,
             $this->builder->getAttributes()->getByType($byDrivelLicenseAttribute)->getValue());
 
-        $this->assertTrue(is_array($response));
+        $this->assertInstanceOf(FineCollection::class, ($response));
+        $this->assertNotEmpty(($response));
         foreach ($response as $fine) {
             $this->assertInstanceOf(Fine::class, $fine);
         }
@@ -114,7 +118,8 @@ class FinesRequestTest extends AbstractRequestTestCase
     public function testNotFound()
     {
         $json = file_get_contents(__DIR__ . '/Mock/EmptyFineResponse.json');
-        $this->assertEmpty($this->builder->prepare(json_decode($json)));
+        $this->assertEmpty($response = $this->builder->prepare(json_decode($json)));
+        $this->assertInstanceOf(FineCollection::class, ($response));
     }
 
     public function testException()

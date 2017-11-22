@@ -13,7 +13,7 @@ class RequestMock extends AbstractRequest
      */
     public $attributes;
 
-    protected $methodName = 'MethodTest';
+    protected $methodName = 'ResponseStructure';
 
     protected $required   = [
         'test',
@@ -27,6 +27,13 @@ class RequestMock extends AbstractRequest
     public function setTest($value)
     {
         $this->attributes->push(new MonetaAttribute('test', $value));
+
+        return $this;
+    }
+
+    public function setMethodName($name)
+    {
+        $this->methodName = $name;
 
         return $this;
     }

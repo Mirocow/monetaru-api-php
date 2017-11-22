@@ -109,8 +109,8 @@
         },
         "payer": "some",
         "payee": "9171",
-        "isPayerAmount": false,
-        "amount": "800.00"
+        "amount": 800,
+        "isPayerAmount": true
       }
     }
   }

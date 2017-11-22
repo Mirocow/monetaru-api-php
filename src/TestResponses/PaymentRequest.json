@@ -1,0 +1,115 @@
+{
+  "Envelope": {
+    "Body": {
+      "PaymentResponse": {
+        "id": 481587,
+        "attribute": [
+          {
+            "value": "TRANSFER",
+            "key": "category"
+          },
+          {
+            "value": "RUB",
+            "key": "sourcecurrencycode"
+          },
+          {
+            "value": "-800",
+            "key": "sourceamount"
+          },
+          {
+            "value": "Фамилия имя отчество",
+            "key": "wirepayer"
+          },
+          {
+            "value": "1",
+            "key": "typeid"
+          },
+          {
+            "value": "800",
+            "key": "targetamount"
+          },
+          {
+            "value": "800",
+            "key": "targetamounttotal"
+          },
+          {
+            "value": "65708000",
+            "key": "wireoktmo"
+          },
+          {
+            "value": "УФК по Свердловской области",
+            "key": "wireusername"
+          },
+          {
+            "value": "0",
+            "key": "sourceamountfee"
+          },
+          {
+            "value": "Уральское ГУ Банка России",
+            "key": "wirebankname"
+          },
+          {
+            "value": "RUB",
+            "key": "targetcurrencycode"
+          },
+          {
+            "value": "SUCCEED",
+            "key": "statusid"
+          },
+          {
+            "value": "40101810500000010010",
+            "key": "wirebankaccount"
+          },
+          {
+            "value": "-800",
+            "key": "sourceamounttotal"
+          },
+          {
+            "value": "2200000000000000000000643",
+            "key": "wirealtpayeridentifier"
+          },
+          {
+            "value": "0",
+            "key": "targetamountfee"
+          },
+          {
+            "value": "046577001",
+            "key": "wirebankbik"
+          },
+          {
+            "value": "6607005515",
+            "key": "wireuserinn"
+          },
+          {
+            "value": "ШТРАФ ПО АДМИНИСТРАТИВНОМУ ПРАВОНАРУШЕНИЮ ПОСТАНОВЛЕНИЕ №18888888888888888888",
+            "key": "wirepaymentpurpose"
+          },
+          {
+            "value": "2017-11-22T14:05:02.000+03:00",
+            "key": "modified"
+          },
+          {
+            "value": "660701001",
+            "key": "wirekpp"
+          },
+          {
+            "value": "9179",
+            "key": "targetaccountid"
+          },
+          {
+            "value": "18811630020016000140",
+            "key": "wirekbk"
+          },
+          {
+            "value": "1",
+            "key": "subproviderid"
+          },
+          {
+            "value": "54321098",
+            "key": "sourceaccountid"
+          }
+        ]
+      }
+    }
+  }
+}

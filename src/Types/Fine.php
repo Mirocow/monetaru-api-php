@@ -237,7 +237,7 @@ class Fine extends AbstractType
                     break;
 
                 case FineReference::FIELD_IS_PAID:
-                    $this->isPaid = (bool) $value;
+                    $this->isPaid = ($value === 'true' || $value === 1 || $value === true);
                     break;
 
                 case FineReference::FIELD_DISCOUNT_SIZE:

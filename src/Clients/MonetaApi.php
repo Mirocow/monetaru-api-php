@@ -1,13 +1,11 @@
 <?php
 
-namespace AvtoDev\MonetaApi;
+namespace AvtoDev\MonetaApi\Clients;
 
 use GuzzleHttp\Psr7\Response;
-use AvtoDev\MonetaApi\Types\Fine;
 use Psr\Http\Message\ResponseInterface;
-use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
+use AvtoDev\MonetaApi\HttpClientInterface;
 use AvtoDev\MonetaApi\HttpClients\GuzzleHttpClient;
-use AvtoDev\MonetaApi\Types\Requests\PaymentRequest;
 use AvtoDev\MonetaApi\Types\Requests\AbstractRequest;
 use AvtoDev\MonetaApi\Traits\StackValuesDotAccessible;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
@@ -18,13 +16,6 @@ class MonetaApi
     use StackValuesDotAccessible {
         getStackValueWithDot as getConfigValue;
     }
-
-    /**
-     * ИД ГБДД в системе Монета.
-     *
-     * @var string
-     */
-    public $fineProviderId = '9171.1';
 
     /**
      * Массив настроек.
@@ -42,12 +33,18 @@ class MonetaApi
          */
         'fine_provider_id' => '9171.1',
         'accounts'         => [
-            'provider'           => [
+            'provider'   => [
                 'id'     => '9171',
-                'sud_id' => '1',
+                'sub_id' => '1',
             ],
-            'fines_account'      => '',
-            'commission_account' => '',
+            'fines'      => [
+                'id'       => '',
+                'password' => '',
+            ],
+            'commission' => [
+                'id'       => '',
+                'password' => '',
+            ],
         ],
         'authorization'    => [
             'username' => '',
@@ -69,7 +66,7 @@ class MonetaApi
     protected $required = [
         'authorization.username',
         'authorization.password',
-        'accounts.fines_account',
+        'accounts.fines.id',
     ];
 
     /**
@@ -85,6 +82,16 @@ class MonetaApi
      * @var array
      */
     protected $inputHeaders;
+
+    /**
+     * @var PaymentsApiCommands
+     */
+    protected $paymentsCommanderClass;
+
+    /**
+     * @var FinesApiCommands
+     */
+    protected $finesCommanderClass;
 
     /**
      * MonetaApi constructor.
@@ -104,18 +111,6 @@ class MonetaApi
         );
     }
 
-    /**
-     * Инициализация поиска.
-     *
-     * @return FinesRequest
-     */
-    public function findFines()
-    {
-        $request = new FinesRequest($this);
-
-        return $request;
-    }
-
     public function getServiceProvider()
     {
         $findProviderRequest = new FindServiceProviderByIdRequest($this);
@@ -123,17 +118,24 @@ class MonetaApi
         return $findProviderRequest;
     }
 
-    /**
-     * @param Fine $fine
-     *
-     * @return PaymentRequest
-     */
-    public function payRequest(Fine $fine)
+    public function fines()
     {
-        $request = new PaymentRequest($this, $fine);
+        if (! isset($this->finesCommanderClass) || ! ($this->finesCommanderClass instanceof FinesApiCommands)) {
+            $this->finesCommanderClass = new FinesApiCommands($this);
+        }
 
-        return $request;
+        return $this->finesCommanderClass;
     }
+
+    public function payments()
+    {
+        if (! isset($this->paymentsCommanderClass) || ! ($this->paymentsCommanderClass instanceof PaymentsApiCommands)) {
+            $this->paymentsCommanderClass = new PaymentsApiCommands($this);
+        }
+
+        return $this->paymentsCommanderClass;
+    }
+
 
     /**
      * @return array
@@ -179,9 +181,10 @@ class MonetaApi
      */
     protected function findTestResponse($methodName)
     {
-        $json = file_get_contents(__DIR__ . "/TestResponses/$methodName.json");
-        if (! $json) {
-            $json = '{}';
+        if (file_exists($path = __DIR__ . "/../TestResponses/$methodName.json")) {
+            $json = file_get_contents($path);
+        } else {
+            $json = file_get_contents(__DIR__ . '/../TestResponses/ResponseStructure.json');
         }
 
         return $json;
