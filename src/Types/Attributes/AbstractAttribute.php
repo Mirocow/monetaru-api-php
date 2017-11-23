@@ -23,27 +23,48 @@ abstract class AbstractAttribute implements Arrayable, Jsonable
         $this->value = $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toArray()
     {
         return [$this->name => $this->value];
     }
 
+    /**
+     * Преобразовывает аттрибут в структуру пригодную для передачи в МОНЕТА.РУ.
+     *
+     * @param string $keyName
+     * @param string $valueName
+     *
+     * @return array
+     */
     public function toAttribute($keyName, $valueName = 'value')
     {
         return [$keyName => $this->name, $valueName => $this->value];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
     }
 
+    /**
+     * Получить наименование(тип) аттрибута.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
     /**
+     * Получить значение аттрибута.
+     *
      * @return bool|int|string
      */
     public function getValue()

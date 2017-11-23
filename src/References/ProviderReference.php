@@ -2,16 +2,38 @@
 
 namespace AvtoDev\MonetaApi\References;
 
+/**
+ * Class ProviderReference.
+ *
+ * Справочник полей провайдера
+ */
 class ProviderReference extends AbstractReference
 {
-    const FIELD_ID                = 'id';
+    /**
+     * Id получателя штрафов.
+     */
+    const FIELD_ID = 'id';
 
-    const FIELD_NAME              = 'name';
+    /**
+     * Название получателя штрафов (ГИБДД).
+     */
+    const FIELD_NAME = 'name';
 
-    const FIELD_SUB_PROVIDER_ID   = 'subProviderId';
+    /**
+     * subProviderId (необходим для идентификации счета в системе МОНЕТА.РУ).
+     */
+    const FIELD_SUB_PROVIDER_ID = 'subProviderId';
 
+    /**
+     * Номер счета в системе МОНЕТА.РУ.
+     */
     const FIELD_TARGET_ACCOUNT_ID = 'targetAccountId';
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return array|string[]
+     */
     public static function getAll()
     {
         return [

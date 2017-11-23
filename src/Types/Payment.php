@@ -13,6 +13,9 @@ class Payment extends AbstractType
      */
     protected $id;
 
+    /**
+     * {@inheritdoc}
+     */
     public function configure($content)
     {
         $config = $this->convertToArray($content);

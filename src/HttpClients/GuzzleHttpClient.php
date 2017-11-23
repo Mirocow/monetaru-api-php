@@ -5,8 +5,20 @@ namespace AvtoDev\MonetaApi\HttpClients;
 use GuzzleHttp\Client;
 use AvtoDev\MonetaApi\HttpClientInterface;
 
+/**
+ * Class GuzzleHttpClient.
+ *
+ * Http-клинт основаный на библиотеке Guzzle
+ *
+ * @see Client
+ */
 class GuzzleHttpClient implements HttpClientInterface
 {
+    /**
+     * Инстанс Http-клиента.
+     *
+     * @var Client
+     */
     protected $client;
 
     /**

@@ -4,6 +4,11 @@ namespace AvtoDev\MonetaApi\Support;
 
 use AvtoDev\MonetaApi\Types\Fine;
 
+/**
+ * Class FineCollection.
+ *
+ * Коллекция штрафов
+ */
 class FineCollection extends AbstractCollection
 {
     /**
@@ -44,5 +49,18 @@ class FineCollection extends AbstractCollection
         }
 
         return $amount;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $return = ['Fines' => []];
+        foreach ($this->stack as $fine) {
+            $return['Fines'][] = $fine->toArray();
+        }
+
+        return $return;
     }
 }

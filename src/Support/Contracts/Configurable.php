@@ -2,6 +2,11 @@
 
 namespace AvtoDev\MonetaApi\Support\Contracts;
 
+/**
+ * Interface Configurable.
+ *
+ * Обзяывает класс иметь единую точку входа для установки значений
+ */
 interface Configurable
 {
     /**

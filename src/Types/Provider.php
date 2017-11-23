@@ -5,14 +5,37 @@ namespace AvtoDev\MonetaApi\Types;
 use AvtoDev\MonetaApi\References\ProviderReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
+/**
+ * Class Provider.
+ *
+ * Провайдер платежей
+ *
+ * @see ProviderReference
+ */
 class Provider extends AbstractType
 {
+    /**
+     * Идентификатор провайдера.
+     *
+     * @var string
+     */
     protected $id;
 
+    /**
+     * @var int
+     */
     protected $subProviderId;
 
+    /**
+     * Наименование провайдера.
+     *
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var int
+     */
     protected $targetAccountId;
 
     /**

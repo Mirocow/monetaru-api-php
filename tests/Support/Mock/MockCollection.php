@@ -10,4 +10,9 @@ class MockCollection extends AbstractCollection
     {
         $this->stack[] = $value;
     }
+
+    public function jsonSerialize()
+    {
+        return $this->stack;
+    }
 }

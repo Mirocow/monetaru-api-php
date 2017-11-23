@@ -5,30 +5,54 @@ namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Types\Payment;
 use AvtoDev\MonetaApi\Clients\MonetaApi;
+use AvtoDev\MonetaApi\Types\PaymentCard;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\PaymentRequestReference;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
 
+/**
+ * Class PaymentRequest.
+ *
+ * Запрос на перевод средств. Может использовать Payment Token.
+ *
+ * @see PaymentRequestReference
+ * @see OperationInfoPaymentRequestReference
+ * @todo: При указании данных карты Access is denied
+ */
 class PaymentRequest extends AbstractPaymentRequest
 {
+    /**
+     * {@inheritdoc}
+     */
     protected $methodName = 'PaymentRequest';
 
-    protected $fio;
+    /**
+     * @var PaymentCard
+     */
+    protected $paymentCard;
 
     /**
      * @var AttributeCollection
      */
     protected $operationInfo;
 
-    protected $required              = [
+    /**
+     * {@inheritdoc}
+     */
+    protected $required = [
         PaymentRequestReference::FIELD_PAYER,
         PaymentRequestReference::FIELD_PAYEE,
         PaymentRequestReference::FIELD_AMOUNT,
         PaymentRequestReference::FIELD_IS_PAYER_AMOUNT,
     ];
 
+    /**
+     * Поля обязательные к заполнению.
+     *
+     * @var array
+     */
     protected $operationInfoRequired = [
         OperationInfoPaymentRequestReference::PAYER_PHONE,
         OperationInfoPaymentRequestReference::PAYER_FIO,
@@ -39,10 +63,8 @@ class PaymentRequest extends AbstractPaymentRequest
      *
      * @param MonetaApi $api
      */
-    public function __construct(
-        MonetaApi $api
-
-    ) {
+    public function __construct(MonetaApi $api)
+    {
         parent::__construct($api);
         $this->operationInfo = new AttributeCollection;
     }
@@ -67,7 +89,8 @@ class PaymentRequest extends AbstractPaymentRequest
         return new Payment($response->PaymentResponse);
     }
 
-    /**
+    /**@
+     * @var string
      * Устанавливает номер счета плательщика.
      * Обязателен.
      *
@@ -83,6 +106,13 @@ class PaymentRequest extends AbstractPaymentRequest
         return $this;
     }
 
+    /**
+     * Устанавливает платежный пароль счета.
+     *
+     * @param string $password
+     *
+     * @return $this
+     */
     public function setPaymentPassword($password)
     {
         if (! empty($password)) {
@@ -93,6 +123,16 @@ class PaymentRequest extends AbstractPaymentRequest
         return $this;
     }
 
+    /**
+     * Устанавливает валюту списания.
+     * true  - В валюте плательщика.
+     * false - В валюте получателя.
+     * Обязателен.
+     *
+     * @param bool $isPayerAmount
+     *
+     * @return $this
+     */
     public function setIsPayerAmount($isPayerAmount = true)
     {
         $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_IS_PAYER_AMOUNT, (bool)
@@ -101,6 +141,14 @@ class PaymentRequest extends AbstractPaymentRequest
         return $this;
     }
 
+    /**
+     * Устанавливает счет назначения.
+     * Обязателен.
+     *
+     * @param $accountNumber
+     *
+     * @return $this
+     */
     public function setDestinationAccount($accountNumber)
     {
         $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYEE,
@@ -110,37 +158,36 @@ class PaymentRequest extends AbstractPaymentRequest
     }
 
     /**
-     * Устанавливает ФИО плательщика.
-     * Обязателен.
-     *
-     * @param string $fio
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setPayerFio($fio)
     {
-        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_FIO,
-            (string) trim($fio)));
+        parent::setPayerFio($fio);
+        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_FIO, $this->fio));
 
         return $this;
     }
 
     /**
-     * Устанавливает номер телефона плательщика.
-     * Обязателен.
-     *
-     * @param string $phone
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setPayerPhone($phone)
     {
-        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_PHONE,
-            $this->formatPhone($phone)));
+        parent::setPayerPhone($phone);
+        $this->operationInfo->push(
+            new MonetaAttribute(OperationInfoPaymentRequestReference::PAYER_PHONE, $this->phone)
+        );
 
         return $this;
     }
 
+    /**
+     * Заполняет запрос по штрафу.
+     *
+     * @param Fine $fine
+     *
+     * @return $this
+     */
     public function setFine(Fine $fine)
     {
         $this->setAmount($fine->getAmount());
@@ -159,9 +206,33 @@ class PaymentRequest extends AbstractPaymentRequest
         return $this;
     }
 
+    /**
+     * Устанавливает сумму перевода.
+     * Обязательно.
+     *
+     * @param $amount
+     *
+     * @return $this
+     */
     public function setAmount($amount)
     {
         $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_AMOUNT, (float) $amount));
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает платёжную карту.
+     *
+     * @param PaymentCard $paymentCard
+     *
+     * @return $this
+     */
+    public function setPaymentCard(PaymentCard $paymentCard)
+    {
+        $this->paymentCard = $paymentCard;
+
+        $this->setAccountNumber('159');
 
         return $this;
     }
@@ -194,6 +265,9 @@ class PaymentRequest extends AbstractPaymentRequest
         $operationInfo = [];
         foreach ($this->operationInfo as $attribute) {
             $operationInfo[] = $attribute->toAttribute('key');
+        }
+        if ($this->paymentCard) {
+            $operationInfo = array_merge($operationInfo, $this->paymentCard->toArray());
         }
 
         return array_merge(

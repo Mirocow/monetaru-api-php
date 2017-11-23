@@ -136,7 +136,6 @@ class MonetaApi
         return $this->paymentsCommanderClass;
     }
 
-
     /**
      * @return array
      */

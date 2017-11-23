@@ -2,6 +2,11 @@
 
 namespace AvtoDev\MonetaApi\References;
 
+/**
+ * Class FineReference.
+ *
+ * Справочник полей объекта штрафа
+ */
 class FineReference extends AbstractReference
 {
     /**
@@ -110,10 +115,20 @@ class FineReference extends AbstractReference
     const FIELD_DISCOUNT_DATE = 'CUSTOMFIELD:DISCOUNTDATE';
 
     /**
+     * Название атрибута в котором содержатся штрафы.
+     */
+    const FIELD_FINES = 'CUSTOMFIELD:105';
+
+    /**
      * Формат даты.
      */
     const DATE_FORMAT = CommonReference::DATE_FORMAT;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return array|string[]
+     */
     public static function getAll()
     {
         return [
@@ -139,6 +154,7 @@ class FineReference extends AbstractReference
             static::FIELD_DISCOUNT_SIZE,
             static::FIELD_DISCOUNT_DATE,
             static::DATE_FORMAT,
+            static::FIELD_FINES,
         ];
     }
 }

@@ -2,21 +2,29 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 
-use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\PaymentRequestReference;
 
+/**
+ * Class PaymentBatchRequest.
+ *
+ * Пакетная отправка PaymentRequest
+ *
+ * @see PaymentRequest
+ *
+ * @todo: На тестовой площадке выбивает Access id denied
+ */
 class PaymentBatchRequest extends AbstractPaymentRequest
 {
     protected $transactions = [];
 
-    public function __construct(MonetaApi $api,
-                                FineCollection $fines)
-    {
-        parent::__construct($api);
-        $this->setIsTransactional()->setExitOnFailure()->setFines($fines);
-    }
+    protected $methodName   = 'PaymentBatchRequest';
+
+    /**
+     * @var FineCollection
+     */
+    protected $fines;
 
     public function setIsTransactional($isTransactional = true)
     {
@@ -38,16 +46,44 @@ class PaymentBatchRequest extends AbstractPaymentRequest
 
     public function prepare($response)
     {
-        // @todo: Implement prepare() method.
+        return $response;
     }
 
     public function setFines(FineCollection $fines)
     {
-        // @todo: Implement setFines() method.
+        $this->fines = $fines;
+
+        return $this;
+    }
+
+    protected function processFines()
+    {
+        foreach ($this->fines as $fine) {
+            $request              = $this->api->payments()
+                ->payOne($fine)
+                ->setPayerPhone($this->phone)
+                ->setPayerFio($this->fio)
+                ->toJson();
+            $this->transactions[] = json_decode($request)
+                ->Envelope
+                ->Body
+                ->PaymentRequest;
+        }
     }
 
     protected function createBody()
     {
-        // @todo: Implement createBody() method.
+        $this->processFines();
+        $attributes = [];
+        foreach ($this->attributes as $attribute) {
+            $attributes[$attribute->getName()] = $attribute->getValue();
+        }
+
+        return array_merge(
+            $attributes,
+            [
+                'transaction' => $this->transactions,
+            ]
+        );
     }
 }

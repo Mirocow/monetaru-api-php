@@ -4,9 +4,17 @@ namespace AvtoDev\MonetaApi\Types;
 
 use Carbon\Carbon;
 use AvtoDev\MonetaApi\References\FineReference;
+use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
 
+/**
+ * Class Fine.
+ *
+ * Штраф
+ *
+ * @see FineReference
+ */
 class Fine extends AbstractType
 {
     /**
@@ -357,15 +365,15 @@ class Fine extends AbstractType
     /**
      * Получить атрибуты для передачи в оплату.
      *
-     * @return MonetaAttribute[]
+     * @return AttributeCollection|MonetaAttribute[]
      */
     public function getOperationInfo()
     {
-        $attributes = [];
+        $attributes = new AttributeCollection;
         foreach (OperationInfoPaymentRequestReference::getAll() as $type) {
             $attribute = $this->attributes->getByType($type);
             if ($attribute) {
-                $attributes[] = $attribute;
+                $attributes->push($attribute);
             }
         }
 

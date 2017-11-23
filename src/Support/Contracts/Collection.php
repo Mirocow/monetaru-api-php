@@ -2,6 +2,9 @@
 
 namespace AvtoDev\MonetaApi\Support\Contracts;
 
+/**
+ * Interface Collection.
+ */
 interface Collection extends \Iterator, \Countable
 {
     /**

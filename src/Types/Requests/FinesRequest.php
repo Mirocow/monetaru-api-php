@@ -2,50 +2,94 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests;
 
+use Carbon\Carbon;
 use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Support\FineCollection;
+use AvtoDev\MonetaApi\References\FineReference;
 use AvtoDev\MonetaApi\References\FinesRequestReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
+/**
+ * Class FinesRequest.
+ *
+ * Запрос поиска штрафов
+ *
+ * @see FinesRequestReference
+ */
 class FinesRequest extends AbstractRequest
 {
-    protected $version          = 'VERSION_3';
+    /**
+     * {@inheritdoc}
+     */
+    protected $version = 'VERSION_3';
 
-    protected $methodName       = 'GetNextStepRequest';
+    /**
+     * {@inheritdoc}
+     */
+    protected $methodName = 'GetNextStepRequest';
 
-    protected $searchAttributes = [];
-
-    protected $required         = [
+    /**
+     * {@inheritdoc}
+     */
+    protected $required = [
         FinesRequestReference::SEARCH_METHOD,
     ];
 
+    /**
+     * Устанавливает номер свидетельства о регистрации ТС.
+     *
+     * @param string $sts
+     *
+     * @return $this
+     */
     public function bySTS($sts)
     {
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_PERSONAL));
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_STS, $sts));
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_STS, (string) trim($sts)));
 
         return $this;
     }
 
+    /**
+     * Устанавливает уникальный идентификатор начисления.
+     *
+     * @param string $uin
+     *
+     * @return $this
+     */
     public function byUin($uin)
     {
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_UIN));
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_UIN, $uin));
+        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_UIN, (string) trim($uin)));
 
         return $this;
     }
 
+    /**
+     * Устанавливает номер прав.
+     *
+     * @param string $driverLicense
+     *
+     * @return $this
+     */
     public function byDriverLicense($driverLicense)
     {
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_PERSONAL));
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_DRIVE_LICENCE, $driverLicense));
+        $this->attributes->push(
+            new MonetaAttribute(FinesRequestReference::SEARCH_BY_DRIVE_LICENCE, (string) trim($driverLicense))
+        );
 
         return $this;
     }
 
+    /**
+     * Включая оплаченные.
+     *
+     * @return $this
+     */
     public function includePaid()
     {
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::CHARGE_STATUS,
@@ -55,6 +99,8 @@ class FinesRequest extends AbstractRequest
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @return Fine[]|FineCollection
      */
     public function exec()
@@ -79,8 +125,9 @@ class FinesRequest extends AbstractRequest
         foreach ($response->GetNextStepResponse->fields->field as $field) {
             if (
                 isset($field->{'attribute-name'})
-                && $field->{'attribute-name'} == 'CUSTOMFIELD:105'
-                && isset($field->enum) && is_array($field->enum->complexItem)
+                && $field->{'attribute-name'} == FineReference::FIELD_FINES
+                && isset($field->enum)
+                && is_array($field->enum->complexItem)
             ) {
                 foreach ($field->enum->complexItem as $complexItem) {
                     $fine = new Fine($complexItem);
@@ -92,6 +139,13 @@ class FinesRequest extends AbstractRequest
         return $return;
     }
 
+    /**
+     * Устанавливает начальную дату поиска.
+     *
+     * @param Carbon|\DateTime|int|string $date_time
+     *
+     * @return $this
+     */
     public function dateFrom($date_time)
     {
         $carbon = $this->convertToCarbon($date_time);
@@ -104,6 +158,13 @@ class FinesRequest extends AbstractRequest
         return $this;
     }
 
+    /**
+     * Устанавливает конечную дату поиска.
+     *
+     * @param Carbon|\DateTime|int|string $date_time
+     *
+     * @return $this
+     */
     public function dateTo($date_time)
     {
         $carbon = $this->convertToCarbon($date_time);
@@ -116,6 +177,9 @@ class FinesRequest extends AbstractRequest
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function createBody()
     {
         $attributes = [];

@@ -2,6 +2,11 @@
 
 namespace AvtoDev\MonetaApi\References;
 
+/**
+ * Class FinesRequestReference.
+ *
+ * Поля запроса штрафов
+ */
 class FinesRequestReference extends AbstractReference
 {
     /**
@@ -89,6 +94,8 @@ class FinesRequestReference extends AbstractReference
 
     /**
      * {@inheritdoc}
+     *
+     * @return array|string[]
      */
     public static function getAll()
     {

@@ -20,10 +20,9 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "ext-soap": "*",
     "guzzlehttp/guzzle": "^6.3",
     "nesbot/carbon": "^1.22",
-    "psr/http-message": "1.0.*"
+    "psr/http-message": "1.*"
   },
   "require-dev": {
     "avto-dev/php-cs-fixer": "^1.0",
@@ -42,8 +41,8 @@
     }
   },
   "support": {
-    "issues": "https://github.com/avto-dev/b2b-api-php/issues",
-    "source": "https://github.com/avto-dev/b2b-api-php"
+    "issues": "https://github.com/avto-dev/moneta-api/issues",
+    "source": "https://github.com/avto-dev/moneta-api"
   },
   "scripts": {
     "test": "./vendor/bin/phpunit --no-coverage",

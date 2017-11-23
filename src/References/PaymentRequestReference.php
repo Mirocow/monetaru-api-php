@@ -2,10 +2,21 @@
 
 namespace AvtoDev\MonetaApi\References;
 
+/**
+ * Class PaymentRequestReference.
+ *
+ * Справочник полей запроса перевода средств
+ */
 class PaymentRequestReference extends AbstractReference
 {
-    const TRANSACTION_FIELD_TRANSACTIONAL   = 'transactional';
+    /**
+     * Название поля транзакции.
+     */
+    const TRANSACTION_FIELD_TRANSACTIONAL = 'transactional';
 
+    /**
+     * Название флага выхода при ошибке.
+     */
     const TRANSACTION_FIELD_EXIT_ON_FAILURE = 'exitOnFailure';
 
     /**
@@ -66,6 +77,11 @@ class PaymentRequestReference extends AbstractReference
      */
     const FIELD_PERSONAL_INFORMATION = 'personalInformation';
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return array|string[]
+     */
     public static function getAll()
     {
         return [

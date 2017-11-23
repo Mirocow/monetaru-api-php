@@ -4,6 +4,11 @@ namespace AvtoDev\MonetaApi\Support;
 
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 
+/**
+ * Class AttributeCollection.
+ *
+ * Коллекция атрибутов
+ */
 class AttributeCollection extends AbstractCollection
 {
     /**
@@ -29,6 +34,8 @@ class AttributeCollection extends AbstractCollection
 
     /**
      * {@inheritdoc}
+     *
+     * @return MonetaAttribute
      */
     public function current()
     {
@@ -137,5 +144,15 @@ class AttributeCollection extends AbstractCollection
         if (isset($this->stack[$attributeName])) {
             unset($this->stack[$attributeName]);
         }
+    }
+
+    public function jsonSerialize()
+    {
+        $return = [];
+        foreach ($this->stack as $attribute) {
+            $return[] = $attribute->toArray();
+        }
+
+        return $return;
     }
 }

@@ -2,6 +2,13 @@
 
 namespace AvtoDev\MonetaApi\References;
 
+use AvtoDev\MonetaApi\Types\Requests\InvoiceRequest;
+
+/**
+ * Class OperationInfoPaymentRequestReference.
+ *
+ * Справочник полей сущьности OperationInfo (Используется в платежных запросах)
+ */
 class OperationInfoPaymentRequestReference extends AbstractReference
 {
     /**
@@ -102,16 +109,43 @@ class OperationInfoPaymentRequestReference extends AbstractReference
     /**
      * дата действия скидки по оплате.
      */
-    const DISCOUNT_DATE   = FineReference::FIELD_DISCOUNT_DATE;
+    const DISCOUNT_DATE = FineReference::FIELD_DISCOUNT_DATE;
 
-    const FIELD_UIN       = 'CUSTOMFIELD:105';
+    /**
+     * Уникальный идентификатор начисления.
+     */
+    const FIELD_UIN = 'CUSTOMFIELD:105';
 
+    /**
+     * SUB PROVIDER ID. Необходим для указания счета получателя оплаты штрафов.
+     */
     const SUB_PROVIDER_ID = 'SUBPROVIDERID';
 
-    const PAYER_FIO       = 'WIREPAYER';
+    /**
+     * Фио плательщика. Обязательно для оплаты штрафов.
+     */
+    const PAYER_FIO = 'WIREPAYER';
 
-    const PAYER_PHONE     = 'CUSTOMFIELD:PHONE';
+    /**
+     * Телефон плательщика.
+     * При указании отправляется уведомление об оплате.
+     * Обязательно для оплаты штрафов.
+     */
+    const PAYER_PHONE = 'CUSTOMFIELD:PHONE';
 
+    /**
+     * Токен для рекарринговых платежей.
+     * Для запроса необходимо вызвать метод InvoiceRequest установив данный пареметр в значение request.
+     *
+     * @see InvoiceRequest
+     */
+    const PAYMENT_TOKEN = 'PAYMENTTOKEN';
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return array|string[]
+     */
     public static function getAll()
     {
         return [
@@ -138,6 +172,7 @@ class OperationInfoPaymentRequestReference extends AbstractReference
             static::FIELD_UIN,
             static::PAYER_FIO,
             static::PAYER_PHONE,
+            static::PAYMENT_TOKEN,
         ];
     }
 }
