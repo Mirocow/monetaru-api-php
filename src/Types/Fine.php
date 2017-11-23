@@ -184,7 +184,9 @@ class Fine extends AbstractType
                                 $item['name'],
                                 (isset($item['value']))
                                     ? $item['value']
-                                    : null));
+                                    : null
+                            )
+                        );
                     }
                     break;
 

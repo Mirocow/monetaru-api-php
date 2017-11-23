@@ -100,8 +100,10 @@ class PaymentRequest extends AbstractPaymentRequest
      */
     public function setAccountNumber($accountNumber)
     {
-        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYER,
-            (string) trim($accountNumber)));
+        $this->attributes->push(new MonetaAttribute(
+            PaymentRequestReference::FIELD_PAYER,
+            (string) trim($accountNumber)
+        ));
 
         return $this;
     }
@@ -116,8 +118,10 @@ class PaymentRequest extends AbstractPaymentRequest
     public function setPaymentPassword($password)
     {
         if (! empty($password)) {
-            $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYMENT_PASSWORD,
-                (string) trim($password)));
+            $this->attributes->push(new MonetaAttribute(
+                PaymentRequestReference::FIELD_PAYMENT_PASSWORD,
+                (string) trim($password)
+            ));
         }
 
         return $this;
@@ -151,8 +155,10 @@ class PaymentRequest extends AbstractPaymentRequest
      */
     public function setDestinationAccount($accountNumber)
     {
-        $this->attributes->push(new MonetaAttribute(PaymentRequestReference::FIELD_PAYEE,
-            (string) trim($accountNumber)));
+        $this->attributes->push(new MonetaAttribute(
+            PaymentRequestReference::FIELD_PAYEE,
+            (string) trim($accountNumber)
+        ));
 
         return $this;
     }
@@ -200,8 +206,10 @@ class PaymentRequest extends AbstractPaymentRequest
             new MonetaAttribute(OperationInfoPaymentRequestReference::FIELD_UIN, (string) $fine->getId())
         );
 
-        $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::SUB_PROVIDER_ID,
-            (string) $this->api->getConfigValue('accounts.provider.sub_id')));
+        $this->operationInfo->push(new MonetaAttribute(
+            OperationInfoPaymentRequestReference::SUB_PROVIDER_ID,
+            (string) $this->api->getConfigValue('accounts.provider.sub_id')
+        ));
 
         return $this;
     }

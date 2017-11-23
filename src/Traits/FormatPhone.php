@@ -11,8 +11,10 @@ trait FormatPhone
         $phone = str_replace('+7', '8', $phone);
         $phone = preg_replace('/[^\d]/', '', $phone);
         if (mb_strlen($phone) != 11) {
-            throw new MonetaBadRequestException('Некорректный формат поля "Контактный телефон плательщика"',
-                '500.4.1.2');
+            throw new MonetaBadRequestException(
+                'Некорректный формат поля "Контактный телефон плательщика"',
+                '500.4.1.2'
+            );
         }
 
         return (int) $phone;

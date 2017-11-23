@@ -44,8 +44,10 @@ class FinesRequest extends AbstractRequest
      */
     public function bySTS($sts)
     {
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
-            FinesRequestReference::SEARCH_METHOD_PERSONAL));
+        $this->attributes->push(new MonetaAttribute(
+            FinesRequestReference::SEARCH_METHOD,
+            FinesRequestReference::SEARCH_METHOD_PERSONAL
+        ));
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_STS, (string) trim($sts)));
 
         return $this;
@@ -60,8 +62,10 @@ class FinesRequest extends AbstractRequest
      */
     public function byUin($uin)
     {
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
-            FinesRequestReference::SEARCH_METHOD_UIN));
+        $this->attributes->push(new MonetaAttribute(
+            FinesRequestReference::SEARCH_METHOD,
+            FinesRequestReference::SEARCH_METHOD_UIN
+        ));
         $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_BY_UIN, (string) trim($uin)));
 
         return $this;
@@ -76,8 +80,10 @@ class FinesRequest extends AbstractRequest
      */
     public function byDriverLicense($driverLicense)
     {
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::SEARCH_METHOD,
-            FinesRequestReference::SEARCH_METHOD_PERSONAL));
+        $this->attributes->push(new MonetaAttribute(
+            FinesRequestReference::SEARCH_METHOD,
+            FinesRequestReference::SEARCH_METHOD_PERSONAL
+        ));
         $this->attributes->push(
             new MonetaAttribute(FinesRequestReference::SEARCH_BY_DRIVE_LICENCE, (string) trim($driverLicense))
         );
@@ -92,8 +98,10 @@ class FinesRequest extends AbstractRequest
      */
     public function includePaid()
     {
-        $this->attributes->push(new MonetaAttribute(FinesRequestReference::CHARGE_STATUS,
-            FinesRequestReference::CHARGE_STATUS_BOTH));
+        $this->attributes->push(new MonetaAttribute(
+            FinesRequestReference::CHARGE_STATUS,
+            FinesRequestReference::CHARGE_STATUS_BOTH
+        ));
 
         return $this;
     }
@@ -123,8 +131,7 @@ class FinesRequest extends AbstractRequest
             return $return;
         }
         foreach ($response->GetNextStepResponse->fields->field as $field) {
-            if (
-                isset($field->{'attribute-name'})
+            if (isset($field->{'attribute-name'})
                 && $field->{'attribute-name'} == FineReference::FIELD_FINES
                 && isset($field->enum)
                 && is_array($field->enum->complexItem)
@@ -151,7 +158,8 @@ class FinesRequest extends AbstractRequest
         $carbon = $this->convertToCarbon($date_time);
         $this->attributes->push(
             new MonetaAttribute(
-                FinesRequestReference::DATE_FROM, $carbon->format(FinesRequestReference::DATE_FORMAT)
+                FinesRequestReference::DATE_FROM,
+                $carbon->format(FinesRequestReference::DATE_FORMAT)
             )
         );
 
@@ -170,7 +178,8 @@ class FinesRequest extends AbstractRequest
         $carbon = $this->convertToCarbon($date_time);
         $this->attributes->push(
             new MonetaAttribute(
-                FinesRequestReference::DATE_TO, $carbon->format(FinesRequestReference::DATE_FORMAT)
+                FinesRequestReference::DATE_TO,
+                $carbon->format(FinesRequestReference::DATE_FORMAT)
             )
         );
 

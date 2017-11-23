@@ -64,10 +64,16 @@ class PaymentCard extends AbstractType
     {
         if ($this->isValidNumber($number)) {
             $this->attributes->push(
-                new MonetaAttribute(PaymentCardReference::CARD_NUMBER, $this->normalizeNumber($number)));
+                new MonetaAttribute(
+                    PaymentCardReference::CARD_NUMBER,
+                    $this->normalizeNumber($number)
+                )
+            );
         } else {
-            throw new MonetaBadRequestException('Некорректный формат поля "' . PaymentCardReference::CARD_NUMBER . '"',
-                '500.4.1.2');
+            throw new MonetaBadRequestException(
+                'Некорректный формат поля "' . PaymentCardReference::CARD_NUMBER . '"',
+                '500.4.1.2'
+            );
         }
 
         return $this;
@@ -76,7 +82,7 @@ class PaymentCard extends AbstractType
     /**
      * Устанавливает срок действия карты.
      *
-     * @param Carbon|\DateTime|int|string $expiration
+     * @param Carbon|\DateTime|int|string $expiration Дата окончания действия
      *
      * @throws MonetaBadRequestException
      *
@@ -101,7 +107,7 @@ class PaymentCard extends AbstractType
     /**
      * Устанавливает защитный код карты карты.
      *
-     * @param $cvv2
+     * @param string $cvv2 cvv2 код
      *
      * @throws MonetaBadRequestException
      *
@@ -117,8 +123,10 @@ class PaymentCard extends AbstractType
                 )
             );
         } else {
-            throw new MonetaBadRequestException('Некорректный формат поля "' . PaymentCardReference::CARD_CVV2 . '"',
-                '500.4.1.2');
+            throw new MonetaBadRequestException(
+                'Некорректный формат поля "' . PaymentCardReference::CARD_CVV2 . '"',
+                '500.4.1.2'
+            );
         }
 
         return $this;

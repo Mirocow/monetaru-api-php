@@ -129,7 +129,9 @@ class MonetaApi
 
     public function payments()
     {
-        if (! isset($this->paymentsCommanderClass) || ! ($this->paymentsCommanderClass instanceof PaymentsApiCommands)) {
+        if (! isset($this->paymentsCommanderClass)
+            || ! ($this->paymentsCommanderClass instanceof PaymentsApiCommands)
+        ) {
             $this->paymentsCommanderClass = new PaymentsApiCommands($this);
         }
 
