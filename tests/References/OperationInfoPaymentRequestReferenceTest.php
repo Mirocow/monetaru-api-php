@@ -30,6 +30,7 @@ class OperationInfoPaymentRequestReferenceTest extends BaseReferenceTestCase
         'CUSTOMFIELD:105',
         'WIREPAYER',
         'CUSTOMFIELD:PHONE',
+        'PAYMENTTOKEN',
     ];
 
     protected function getAll()

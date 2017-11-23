@@ -8,6 +8,7 @@ use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Clients\MonetaApi as Api;
 use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
+use AvtoDev\MonetaApi\Types\Requests\InvoiceRequest;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
@@ -106,5 +107,10 @@ class MonetaApiTest extends TestCase
         $collection = new FineCollection;
         $collection->push(new Fine);
         $this->assertInstanceOf(PaymentBatchRequest::class, $this->api->payments()->payButch($collection));
+    }
+
+    public function testInvoice()
+    {
+        $this->assertInstanceOf(InvoiceRequest::class, $this->api->payments()->invoice());
     }
 }

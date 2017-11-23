@@ -150,7 +150,7 @@ class AttributeCollection extends AbstractCollection
     {
         $return = [];
         foreach ($this->stack as $attribute) {
-            $return[] = $attribute->toArray();
+            $return = array_merge($return, $attribute->toArray());
         }
 
         return $return;

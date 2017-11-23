@@ -111,6 +111,19 @@ class AttributeCollectionTest extends TestCase
         $this->assertFalse($this->attributes->valid());
     }
 
+    public function testJsonSerialize()
+    {
+        $this->prepare();
+        $this->assertEquals(
+            [
+                'key'  => 'value',
+                'key2' => 'value',
+                'key3' => 'value',
+            ],
+            $this->attributes->jsonSerialize()
+        );
+    }
+
     public function testHas()
     {
         $this->assertFalse($this->attributes->has($attribute = new MonetaAttribute('key', 'value')));

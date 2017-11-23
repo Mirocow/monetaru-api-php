@@ -65,6 +65,13 @@ class AbstractCollectionTest extends TestCase
         $this->assertEquals([$attribute], $this->attributes->toArray());
     }
 
+    public function testToJson()
+    {
+        $this->attributes->push($attribute = 'value');
+
+        $this->assertEquals(json_encode([$attribute]), $this->attributes->toJson());
+    }
+
     public function testRewind()
     {
         $this->prepare();

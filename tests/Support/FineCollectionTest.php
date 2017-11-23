@@ -35,6 +35,19 @@ class FineCollectionTest extends TestCase
         $this->assertEquals($this->needToPayAmount, $this->collection->needToPayAmount());
     }
 
+    public function testJsonSerialize()
+    {
+        $fines = ['Fines' => []];
+        foreach ($this->collection as $fine) {
+            $fines['Fines'][] = $fine->toArray();
+        }
+
+        $this->assertEquals(
+            $fines,
+            $this->collection->jsonSerialize()
+        );
+    }
+
     protected function generateFines()
     {
         $count = mt_rand(1, 10);

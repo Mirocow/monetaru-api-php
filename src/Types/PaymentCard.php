@@ -117,7 +117,7 @@ class PaymentCard extends AbstractType
                 )
             );
         } else {
-            throw new MonetaBadRequestException('Некорректный формат поля "' . PaymentCardReference::CARD_NUMBER . '"',
+            throw new MonetaBadRequestException('Некорректный формат поля "' . PaymentCardReference::CARD_CVV2 . '"',
                 '500.4.1.2');
         }
 
