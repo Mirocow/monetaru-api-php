@@ -1,6 +1,8 @@
 <?php
 
-namespace AvtoDev\MonetaApi\Clients;
+namespace AvtoDev\MonetaApi\Clients\ApiCommands;
+
+use AvtoDev\MonetaApi\Clients\MonetaApi;
 
 /**
  * Class AbstractApiCommands.

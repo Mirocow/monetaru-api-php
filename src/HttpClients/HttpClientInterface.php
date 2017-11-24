@@ -1,6 +1,6 @@
 <?php
 
-namespace AvtoDev\MonetaApi;
+namespace AvtoDev\MonetaApi\HttpClients;
 
 interface HttpClientInterface
 {

@@ -78,6 +78,11 @@ class PaymentRequestReference extends AbstractReference
     const FIELD_PERSONAL_INFORMATION = 'personalInformation';
 
     /**
+     * Ид плательщика при установке платежа картой.
+     */
+    const CARD_PAYER_ID = PaymentCardReference::CARD_PAYER_ID;
+
+    /**
      * {@inheritdoc}
      *
      * @return array|string[]

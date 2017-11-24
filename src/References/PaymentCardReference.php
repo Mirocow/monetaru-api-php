@@ -32,6 +32,11 @@ class PaymentCardReference extends AbstractReference
     const EXPIRATION_DATA_FORMAT = 'm/Y';
 
     /**
+     * Ид плательщика при установке платежа картой.
+     */
+    const CARD_PAYER_ID = '159';
+
+    /**
      * {@inheritdoc}
      *
      * @return array|string[]

@@ -3,7 +3,6 @@
 namespace AvtoDev\MonetaApi\HttpClients;
 
 use GuzzleHttp\Client;
-use AvtoDev\MonetaApi\HttpClientInterface;
 
 /**
  * Class GuzzleHttpClient.

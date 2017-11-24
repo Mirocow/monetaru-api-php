@@ -2,7 +2,7 @@
 
 namespace AvtoDev\MonetaApi\References;
 
-use AvtoDev\MonetaApi\Types\Requests\InvoiceRequest;
+use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
 
 /**
  * Class OperationInfoPaymentRequestReference.

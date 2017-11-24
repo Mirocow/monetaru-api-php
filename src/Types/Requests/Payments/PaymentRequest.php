@@ -240,7 +240,7 @@ class PaymentRequest extends AbstractPaymentRequest
     {
         $this->paymentCard = $paymentCard;
 
-        $this->setAccountNumber('159');
+        $this->setAccountNumber(PaymentRequestReference::CARD_PAYER_ID);
 
         return $this;
     }

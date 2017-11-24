@@ -1,6 +1,6 @@
 <?php
 
-namespace AvtoDev\MonetaApi\Types\Requests;
+namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 
 use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
@@ -17,7 +17,7 @@ use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
  *
  * @todo: На демо Access is denied
  */
-class InvoiceRequest extends AbstractRequest
+class InvoiceRequest extends AbstractPaymentRequest
 {
     protected $methodName = 'InvoiceRequest';
 

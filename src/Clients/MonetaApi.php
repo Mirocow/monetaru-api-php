@@ -4,12 +4,14 @@ namespace AvtoDev\MonetaApi\Clients;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-use AvtoDev\MonetaApi\HttpClientInterface;
 use AvtoDev\MonetaApi\HttpClients\GuzzleHttpClient;
 use AvtoDev\MonetaApi\Types\Requests\AbstractRequest;
+use AvtoDev\MonetaApi\HttpClients\HttpClientInterface;
 use AvtoDev\MonetaApi\Traits\StackValuesDotAccessible;
+use AvtoDev\MonetaApi\Clients\ApiCommands\FinesApiCommands;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
-use AvtoDev\MonetaApi\Types\Requests\FindServiceProviderByIdRequest;
+use AvtoDev\MonetaApi\Clients\ApiCommands\PaymentsApiCommands;
+use AvtoDev\MonetaApi\Clients\ApiCommands\ServiceProviderApiCommands;
 
 class MonetaApi
 {
@@ -94,6 +96,11 @@ class MonetaApi
     protected $finesCommanderClass;
 
     /**
+     * @var ServiceProviderApiCommands
+     */
+    protected $serviceProviderCommanderClass;
+
+    /**
      * MonetaApi constructor.
      *
      * @param array $config
@@ -111,13 +118,25 @@ class MonetaApi
         );
     }
 
-    public function getServiceProvider()
+    /**
+     * Методы работы с провайдерами.
+     *
+     * @return ServiceProviderApiCommands
+     */
+    public function serviceProvider()
     {
-        $findProviderRequest = new FindServiceProviderByIdRequest($this);
+        if (! $this->serviceProviderCommanderClass) {
+            $this->serviceProviderCommanderClass = new ServiceProviderApiCommands($this);
+        }
 
-        return $findProviderRequest;
+        return $this->serviceProviderCommanderClass;
     }
 
+    /**
+     * Методы работы со штрафами.
+     *
+     * @return FinesApiCommands
+     */
     public function fines()
     {
         if (! isset($this->finesCommanderClass) || ! ($this->finesCommanderClass instanceof FinesApiCommands)) {
@@ -127,6 +146,11 @@ class MonetaApi
         return $this->finesCommanderClass;
     }
 
+    /**
+     * Методы работы с финансами.
+     *
+     * @return PaymentsApiCommands
+     */
     public function payments()
     {
         if (! isset($this->paymentsCommanderClass)
@@ -168,6 +192,8 @@ class MonetaApi
     }
 
     /**
+     * Возвращает работает ли клиент в тестовом режиме.
+     *
      * @return bool
      */
     public function isTest()
@@ -191,6 +217,14 @@ class MonetaApi
         return $json;
     }
 
+    /**
+     * Генерирует авторизационные заголовки.
+     *
+     * @param string $userName
+     * @param string $password
+     *
+     * @return array
+     */
     protected function createSecurityHeader($userName, $password)
     {
         $header = [
@@ -205,8 +239,16 @@ class MonetaApi
         return $header;
     }
 
+    /**
+     * Проверяет заполнены ли все необходимые настройки.
+     *
+     * @throws MonetaBadSettingsException
+     */
     protected function checkSettings()
     {
+        if ($this->isTest()) {
+            return;
+        }
         foreach ($this->required as $configItem) {
             if (! $this->getConfigValue($configItem)) {
                 throw new MonetaBadSettingsException("Не заполнен обязательный параметр $configItem");
@@ -223,6 +265,8 @@ class MonetaApi
     }
 
     /**
+     * Инициализирует http-клиент
+     *
      * @throws MonetaBadSettingsException
      *
      * @return HttpClientInterface

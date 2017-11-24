@@ -1,10 +1,10 @@
 <?php
 
-namespace AvtoDev\MonetaApi\Clients;
+namespace AvtoDev\MonetaApi\Clients\ApiCommands;
 
 use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Support\FineCollection;
-use AvtoDev\MonetaApi\Types\Requests\InvoiceRequest;
+use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentBatchRequest;
 
