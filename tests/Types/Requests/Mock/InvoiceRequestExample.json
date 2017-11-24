@@ -1,0 +1,28 @@
+{
+  "Envelope": {
+    "Header": {
+      "Security": {
+        "UsernameToken": {
+          "Username": "i",
+          "Password": "need"
+        }
+      }
+    },
+    "Body": {
+      "InvoiceRequest": {
+        "operationInfo": {
+          "attribute": [
+            {
+              "key": "PAYMENTTOKEN",
+              "value": "request"
+            }
+          ]
+        },
+        "amount": 200,
+        "payee": "123",
+        "clientTransaction": "avTest1",
+        "payer": "303"
+      }
+    }
+  }
+}

@@ -5,7 +5,6 @@ namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Types\Payment;
 use AvtoDev\MonetaApi\Clients\MonetaApi;
-use AvtoDev\MonetaApi\Types\PaymentCard;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\References\PaymentRequestReference;
@@ -27,11 +26,6 @@ class PaymentRequest extends AbstractPaymentRequest
      * {@inheritdoc}
      */
     protected $methodName = 'PaymentRequest';
-
-    /**
-     * @var PaymentCard
-     */
-    protected $paymentCard;
 
     /**
      * @var AttributeCollection
@@ -229,22 +223,6 @@ class PaymentRequest extends AbstractPaymentRequest
     }
 
     /**
-     * Устанавливает платёжную карту.
-     *
-     * @param PaymentCard $paymentCard
-     *
-     * @return $this
-     */
-    public function setPaymentCard(PaymentCard $paymentCard)
-    {
-        $this->paymentCard = $paymentCard;
-
-        $this->setAccountNumber($this->api->getConfigValue('accounts.payer_card'));
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function checkRequired()
@@ -272,9 +250,6 @@ class PaymentRequest extends AbstractPaymentRequest
         $operationInfo = [];
         foreach ($this->operationInfo as $attribute) {
             $operationInfo[] = $attribute->toAttribute('key');
-        }
-        if ($this->paymentCard) {
-            $operationInfo = array_merge($operationInfo, $this->paymentCard->toArray());
         }
 
         return array_merge(

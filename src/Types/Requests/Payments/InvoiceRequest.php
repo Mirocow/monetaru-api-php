@@ -2,6 +2,7 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 
+use AvtoDev\MonetaApi\Types\Invoice;
 use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Support\AttributeCollection;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
@@ -55,7 +56,7 @@ class InvoiceRequest extends AbstractPaymentRequest
      */
     public function prepare($response)
     {
-        return $response;
+        return new Invoice($response->InvoiceResponse);
     }
 
     /**
@@ -132,6 +133,16 @@ class InvoiceRequest extends AbstractPaymentRequest
         ));
 
         return $this;
+    }
+
+    /**
+     * Возвращает копию аттрибутов.
+     *
+     * @return AttributeCollection
+     */
+    public function getOperationInfo()
+    {
+        return $this->operationInfo->copy();
     }
 
     /**

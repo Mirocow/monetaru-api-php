@@ -38,8 +38,10 @@ class PaymentRequestTest extends AbstractRequestTestCase
     {
         $json = file_get_contents(__DIR__ . '/Mock/PaymentRequestExample.json');
 
-        $this->assertJsonStringEqualsJsonString($json,
-            $this->builder->setPayerPhone(89876543210)->setPayerFio('Некто с именем')->toJson());
+        $this->assertJsonStringEqualsJsonString(
+            $json,
+            $this->builder->setPayerPhone(89876543210)->setPayerFio('Некто с именем')->toJson()
+        );
     }
 
     public function testExec()

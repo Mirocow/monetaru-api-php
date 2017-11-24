@@ -55,13 +55,21 @@ class FinesRequest extends AbstractRequest
 
     /**
      * Устанавливает уникальный идентификатор начисления.
+     * Можно указать через запятую, либо передать массив.
      *
-     * @param string $uin
+     * @param array|string $uin
      *
      * @return $this
      */
     public function byUin($uin)
     {
+        if (is_array($uin)) {
+            $newUin = '';
+            foreach ($uin as $id) {
+                $newUin .= $id . ',';
+            }
+            $uin = mb_substr($newUin, 0, -1);
+        }
         $this->attributes->push(new MonetaAttribute(
             FinesRequestReference::SEARCH_METHOD,
             FinesRequestReference::SEARCH_METHOD_UIN
