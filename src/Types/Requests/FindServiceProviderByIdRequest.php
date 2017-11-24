@@ -29,6 +29,16 @@ class FindServiceProviderByIdRequest extends AbstractRequest
      *
      * @return Provider
      */
+    public function exec()
+    {
+        return parent::exec();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Provider
+     */
     public function prepare($response)
     {
         return new Provider($response->FindServiceProviderByIdResponse->provider);

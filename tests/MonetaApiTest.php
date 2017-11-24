@@ -8,14 +8,15 @@ use AvtoDev\MonetaApi\Types\Fine;
 use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Clients\MonetaApi as Api;
 use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
-use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
 use AvtoDev\MonetaApi\Tests\Types\Requests\Mock\RequestMock;
+use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentBatchRequest;
 use AvtoDev\MonetaApi\Types\Requests\FindServiceProviderByIdRequest;
+use AvtoDev\MonetaApi\Types\Requests\Payments\GetOperationDetailsRequest;
 
 class MonetaApiTest extends TestCase
 {
@@ -59,7 +60,10 @@ class MonetaApiTest extends TestCase
 
     public function testServiceProvider()
     {
-        $this->assertInstanceOf(FindServiceProviderByIdRequest::class, $this->api->getServiceProvider());
+        $this->assertInstanceOf(
+            FindServiceProviderByIdRequest::class,
+            $this->api->serviceProvider()->getById('123')
+        );
     }
 
     public function testPayRequest()
@@ -112,5 +116,10 @@ class MonetaApiTest extends TestCase
     public function testInvoice()
     {
         $this->assertInstanceOf(InvoiceRequest::class, $this->api->payments()->invoice());
+    }
+
+    public function testOperationDetails()
+    {
+        $this->assertInstanceOf(GetOperationDetailsRequest::class, $this->api->payments()->getOperationDetails());
     }
 }

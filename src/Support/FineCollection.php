@@ -22,6 +22,8 @@ class FineCollection extends AbstractCollection
     }
 
     /**
+     * Полная сумма штрафов.
+     *
      * @return int
      */
     public function totalAmount()
@@ -36,6 +38,8 @@ class FineCollection extends AbstractCollection
     }
 
     /**
+     * Сумма для оплаты.
+     *
      * @return int
      */
     public function needToPayAmount()

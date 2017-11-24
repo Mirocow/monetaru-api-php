@@ -3,7 +3,6 @@
 namespace AvtoDev\MonetaApi\Types;
 
 use Carbon\Carbon;
-use AvtoDev\MonetaApi\Traits\CheckRequired;
 use AvtoDev\MonetaApi\References\PaymentCardReference;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
@@ -17,8 +16,6 @@ use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
  */
 class PaymentCard extends AbstractType
 {
-    use CheckRequired;
-
     /**
      * Поля обязательные к заполнению.
      *
@@ -163,7 +160,6 @@ class PaymentCard extends AbstractType
      */
     public function toArray()
     {
-        $this->checkRequired();
         $attributes = [];
         foreach ($this->attributes as $attribute) {
             $attributes[] = $attribute->toAttribute('key');

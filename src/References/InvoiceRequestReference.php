@@ -25,6 +25,16 @@ class InvoiceRequestReference extends AbstractReference
     const FIELD_OPERATION_INFO = PaymentRequestReference::FIELD_OPERATION_INFO;
 
     /**
+     * Плательщик.
+     */
+    const FIELD_PAYER = PaymentRequestReference::FIELD_PAYER;
+
+    /**
+     * id транзакции в системе клиента.
+     */
+    const FIELD_CLIENT_TRANSACTION_ID = 'clientTransaction';
+
+    /**
      * {@inheritdoc}
      *
      * @return array|string[]
@@ -35,6 +45,8 @@ class InvoiceRequestReference extends AbstractReference
             static::FIELD_PAYEE,
             static::FIELD_AMOUNT,
             static::FIELD_OPERATION_INFO,
+            static::FIELD_PAYER,
+            static::FIELD_CLIENT_TRANSACTION_ID,
         ];
     }
 }

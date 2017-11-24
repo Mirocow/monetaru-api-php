@@ -3,6 +3,7 @@
 namespace AvtoDev\MonetaApi\Types;
 
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
+use AvtoDev\MonetaApi\References\OperationInfoReference;
 
 class Payment extends AbstractType
 {
@@ -35,10 +36,28 @@ class Payment extends AbstractType
     }
 
     /**
+     * Возвращает id в системе МОНЕТА.РУ.
+     *
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        return ($this->getStatus() == 'SUCCEED');
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->attributes->getByType(OperationInfoReference::FIELD_STATUS)->getValue();
     }
 }

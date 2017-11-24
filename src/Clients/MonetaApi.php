@@ -42,11 +42,14 @@ class MonetaApi
             'fines'      => [
                 'id'       => '',
                 'password' => '',
+
             ],
             'commission' => [
                 'id'       => '',
                 'password' => '',
             ],
+            //плательщик карта
+            'payer_card' => '303',
         ],
         'authorization'    => [
             'username' => '',

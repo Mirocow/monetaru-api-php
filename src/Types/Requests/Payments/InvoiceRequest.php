@@ -27,6 +27,7 @@ class InvoiceRequest extends AbstractPaymentRequest
     protected $required = [
         InvoiceRequestReference::FIELD_AMOUNT,
         InvoiceRequestReference::FIELD_PAYEE,
+        InvoiceRequestReference::FIELD_CLIENT_TRANSACTION_ID,
     ];
 
     /**
@@ -95,6 +96,40 @@ class InvoiceRequest extends AbstractPaymentRequest
     public function requestPaymentToken()
     {
         $this->operationInfo->push(new MonetaAttribute(OperationInfoPaymentRequestReference::PAYMENT_TOKEN, 'request'));
+        $this->setAccountNumber($this->api->getConfigValue('accounts.payer_card'));
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает номер счета плательщика.
+     * Обязателен.
+     *
+     * @param string $accountNumber
+     *
+     * @return $this
+     */
+    public function setAccountNumber($accountNumber)
+    {
+        $this->attributes->push(new MonetaAttribute(
+            InvoiceRequestReference::FIELD_PAYER,
+            (string) trim($accountNumber)
+        ));
+
+        return $this;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setClientTransactionId($id)
+    {
+        $this->attributes->push(new MonetaAttribute(
+            InvoiceRequestReference::FIELD_CLIENT_TRANSACTION_ID,
+            (string) trim($id)
+        ));
 
         return $this;
     }
@@ -116,7 +151,6 @@ class InvoiceRequest extends AbstractPaymentRequest
 
         return array_merge(
             [
-                'version'                                     => $this->version,
                 InvoiceRequestReference::FIELD_OPERATION_INFO => [
                     'attribute' => $operationInfo,
                 ],

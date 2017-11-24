@@ -89,8 +89,7 @@ class PaymentRequest extends AbstractPaymentRequest
         return new Payment($response->PaymentResponse);
     }
 
-    /**@
-     * @var string
+    /**
      * Устанавливает номер счета плательщика.
      * Обязателен.
      *
@@ -240,7 +239,7 @@ class PaymentRequest extends AbstractPaymentRequest
     {
         $this->paymentCard = $paymentCard;
 
-        $this->setAccountNumber(PaymentRequestReference::CARD_PAYER_ID);
+        $this->setAccountNumber($this->api->getConfigValue('accounts.payer_card'));
 
         return $this;
     }

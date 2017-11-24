@@ -37,4 +37,14 @@ abstract class AbstractType implements Configurable, Arrayable
 
         return $array;
     }
+
+    /**
+     * Получить все аттрибуты.
+     *
+     * @return AttributeCollection
+     */
+    public function getAttributes()
+    {
+        return $this->attributes->copy();
+    }
 }

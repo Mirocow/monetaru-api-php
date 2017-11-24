@@ -7,6 +7,7 @@ use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentRequest;
 use AvtoDev\MonetaApi\Types\Requests\Payments\PaymentBatchRequest;
+use AvtoDev\MonetaApi\Types\Requests\Payments\GetOperationDetailsRequest;
 
 /**
  * Class PaymentsApiCommands.
@@ -71,5 +72,15 @@ class PaymentsApiCommands extends AbstractApiCommands
         $request = new InvoiceRequest($this->api);
 
         return $request;
+    }
+
+    /**
+     * Получить информацию о платеже.
+     *
+     * @return GetOperationDetailsRequest
+     */
+    public function getOperationDetails()
+    {
+        return new GetOperationDetailsRequest($this->api);
     }
 }

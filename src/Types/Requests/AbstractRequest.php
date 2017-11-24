@@ -4,7 +4,6 @@ namespace AvtoDev\MonetaApi\Types\Requests;
 
 use AvtoDev\MonetaApi\Clients\MonetaApi;
 use AvtoDev\MonetaApi\Traits\FormatPhone;
-use AvtoDev\MonetaApi\Traits\CheckRequired;
 use AvtoDev\MonetaApi\Traits\ConvertToArray;
 use AvtoDev\MonetaApi\Traits\ConvertToCarbon;
 use AvtoDev\MonetaApi\Support\Contracts\Jsonable;
@@ -15,7 +14,7 @@ use AvtoDev\MonetaApi\Exceptions\MonetaServerErrorException;
 
 abstract class AbstractRequest implements Jsonable
 {
-    use  ConvertToArray, ConvertToCarbon, FormatPhone, CheckRequired;
+    use  ConvertToArray, ConvertToCarbon, FormatPhone;
 
     /**
      * @var AttributeCollection
@@ -165,18 +164,16 @@ abstract class AbstractRequest implements Jsonable
     }
 
     /**
-     * {@inheritdoc}
+     * Проверка обязательных к запонению аттрибутов.
+     *
+     * @throws MonetaBadRequestException
      */
-    protected function getCollection()
+    protected function checkRequired()
     {
-        return $this->attributes;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRequiredReference()
-    {
-        return $this->required;
+        foreach ($this->required as $attribute) {
+            if (! $this->attributes->hasByType($attribute)) {
+                throw new MonetaBadRequestException("Не заполнен обязательный атрибут: $attribute", '500.1');
+            }
+        }
     }
 }

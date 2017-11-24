@@ -10,6 +10,8 @@ class InvoiceRequestReferenceTest extends BaseReferenceTestCase
         'amount',
         'operationInfo',
         'payee',
+        'clientTransaction',
+        'payer',
     ];
 
     protected function getAll()

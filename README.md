@@ -120,6 +120,65 @@ $configuration = [
 
 ##Использование
 
+Инициализация лиента:
+
+```php
+<?php
+
+include 'vendor/autoload.php';
+
+use AvtoDev\MonetaApi\Clients\MonetaApi;
+
+//обязательные настройки
+$config = [
+    'authorization'  => [
+        'username' => 'username',
+        'password' => 'password',
+    ],
+    'accounts'       => [
+        'fines' => [
+            'id'      => '123456789',            
+        ],
+        'commission' => [
+            'id' => '987654321',
+        ],
+    ],
+
+];
+
+$moneta = new MonetaApi($config);
+```
+
+###Примеры
+
+Перевод средств между счетами:
+
+```php
+<?php
+$payment = $moneta->payments()->transfer()
+    ->setAccountNumber('123456789')
+    ->setPaymentPassword('123')
+    ->setDestinationAccount('987654321')
+    ->setAmount(200)
+    ->exec();
+
+var_dump($payment->isSuccessful());
+```
+
+Получение списка штрафов:
+
+```php
+<?php
+$fines = $moneta->fines()
+    ->find()
+    ->byUin('132')
+    ->includePaid()
+    ->exec();
+
+var_dump($fines->totalAmount());
+```
+
+Оплата штрафа:
 
 
 [client_v1]:./src/Clients/MonetaApi.php
