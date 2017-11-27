@@ -5,6 +5,11 @@ namespace AvtoDev\MonetaApi\Tests\Types;
 use Carbon\Carbon;
 use AvtoDev\MonetaApi\Types\Invoice;
 
+/**
+ * Class InvoiceTest.
+ *
+ * @group types
+ */
 class InvoiceTest extends BaseTypeTest
 {
     /**

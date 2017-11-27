@@ -83,6 +83,16 @@ class PaymentRequestReference extends AbstractReference
     const CARD_PAYER_ID = PaymentCardReference::CARD_PAYER_ID;
 
     /**
+     * Номер родительской операции, операции НКО, которой были списаны денежные средства.
+     */
+    const FIELD_PARENT_ID = 'PARENTID';
+
+    /**
+     * Сумма комиссии, удержанная с клиента.
+     */
+    const FIELD_COMMISSION = 'SOURCETARIFFMULTIPLIER';
+
+    /**
      * {@inheritdoc}
      *
      * @return array|string[]
@@ -102,6 +112,8 @@ class PaymentRequestReference extends AbstractReference
             static::FIELD_DESCRIPTION,
             static::FIELD_OPERATION_INFO,
             static::FIELD_PERSONAL_INFORMATION,
+            static::FIELD_PARENT_ID,
+            static::FIELD_COMMISSION,
         ];
     }
 }

@@ -223,6 +223,30 @@ class PaymentRequest extends AbstractPaymentRequest
     }
 
     /**
+     * @param $id
+     *
+     * @return $this
+     */
+    public function setParentId($id)
+    {
+        $this->operationInfo->push(new MonetaAttribute(PaymentRequestReference::FIELD_PARENT_ID, (int) $id));
+
+        return $this;
+    }
+
+    /**
+     * @param $commission
+     *
+     * @return $this
+     */
+    public function setCommission($commission)
+    {
+        $this->operationInfo->push(new MonetaAttribute(PaymentRequestReference::FIELD_COMMISSION, (float) $commission));
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function checkRequired()

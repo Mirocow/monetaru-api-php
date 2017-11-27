@@ -19,6 +19,8 @@ class PaymentRequestReferenceTest extends BaseReferenceTestCase
         'personalInformation',
         'transaction',
         'transactional',
+        'PARENTID',
+        'SOURCETARIFFMULTIPLIER',
 
     ];
 

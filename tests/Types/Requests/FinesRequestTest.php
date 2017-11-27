@@ -82,8 +82,13 @@ class FinesRequestTest extends AbstractRequestTestCase
         $this->assertEquals(1, $this->builder->getAttributes()->getByType($searchMethod)->getValue());
 
         $this->assertTrue($this->builder->getAttributes()->hasByType($byDrivelLicenseAttribute));
-        $this->assertEquals($license,
-            $this->builder->getAttributes()->getByType($byDrivelLicenseAttribute)->getValue());
+        $this->assertEquals(
+            $license,
+            $this->builder
+                ->getAttributes()
+                ->getByType($byDrivelLicenseAttribute)
+                ->getValue()
+        );
 
         $this->assertInstanceOf(FineCollection::class, ($response));
         $this->assertNotEmpty(($response));

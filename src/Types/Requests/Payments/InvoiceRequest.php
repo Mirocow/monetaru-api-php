@@ -52,6 +52,16 @@ class InvoiceRequest extends AbstractPaymentRequest
     /**
      * {@inheritdoc}
      *
+     * @return Invoice
+     */
+    public function exec()
+    {
+        return parent::exec();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @return mixed
      */
     public function prepare($response)

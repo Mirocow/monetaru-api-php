@@ -1,0 +1,57 @@
+{
+  "Envelope": {
+    "Body": {
+      "GetOperationDetailsByIdResponse": {
+        "operation": {
+          "id": 123456789,
+          "attribute": [
+            {
+              "value": "BUSINESS",
+              "key": "category"
+            },
+            {
+              "value": "1",
+              "key": "isinvoice"
+            },
+            {
+              "value": "RUB",
+              "key": "sourcecurrencycode"
+            },
+            {
+              "value": "10",
+              "key": "sourceamount"
+            },
+            {
+              "value": "5",
+              "key": "typeid"
+            },
+            {
+              "value": "CREATED",
+              "key": "statusid"
+            },
+            {
+              "value": "10",
+              "key": "sourceamounttotal"
+            },
+            {
+              "value": "2017-11-27T08:43:03.000+03:00",
+              "key": "modified"
+            },
+            {
+              "value": "id2201650",
+              "key": "clienttransaction"
+            },
+            {
+              "value": "55724425",
+              "key": "sourceaccountid"
+            },
+            {
+              "value": "true",
+              "key": "isreversed"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

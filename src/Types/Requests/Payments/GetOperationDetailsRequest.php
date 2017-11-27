@@ -2,31 +2,49 @@
 
 namespace AvtoDev\MonetaApi\Types\Requests\Payments;
 
+use AvtoDev\MonetaApi\Types\OperationDetails;
 use AvtoDev\MonetaApi\Types\Requests\AbstractRequest;
 
 class GetOperationDetailsRequest extends AbstractRequest
 {
-    protected $methodName = 'GetOperationDetailsRequest';
+    protected $methodName = 'GetOperationDetailsByIdRequest';
 
     protected $id;
 
     public function prepare($response)
     {
-        // @todo: Implement prepare() method.
+        return new OperationDetails($response->GetOperationDetailsByIdResponse);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return OperationDetails
+     */
+    public function exec()
+    {
+        return parent::exec();
     }
 
     /**
      * ИД транзакции.
      *
      * @param (string) $id
+     *
+     * @return $this
      */
     public function byId($id)
     {
         $this->id = (string) trim($id);
+
+        return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function createBody()
     {
-        return [$this->id];
+        return (int) $this->id;
     }
 }

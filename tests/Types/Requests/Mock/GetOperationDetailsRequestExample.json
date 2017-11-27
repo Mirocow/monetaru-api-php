@@ -1,0 +1,15 @@
+{
+  "Envelope": {
+    "Header": {
+      "Security": {
+        "UsernameToken": {
+          "Username": "i",
+          "Password": "need"
+        }
+      }
+    },
+    "Body": {
+      "GetOperationDetailsByIdRequest": 123456789
+    }
+  }
+}

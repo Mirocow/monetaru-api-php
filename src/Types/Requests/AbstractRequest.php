@@ -148,6 +148,7 @@ abstract class AbstractRequest implements Jsonable
     {
         $exception = new MonetaBadSettingsException;
         $message   = '';
+        dump($response);
         if (isset($response->fault->faultstring) && trim($response->fault->faultstring)) {
             $message = $response->fault->faultstring;
         }
