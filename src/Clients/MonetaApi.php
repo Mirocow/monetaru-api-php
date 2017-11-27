@@ -35,6 +35,7 @@ class MonetaApi
          */
         'fine_provider_id' => '9171.1',
         'accounts'         => [
+            //Счёт гибдд
             'provider'   => [
                 'id'     => '9171',
                 'sub_id' => '1',
