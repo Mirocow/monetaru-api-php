@@ -152,6 +152,77 @@ $moneta = new MonetaApi($config);
 
 ###Примеры
 
+####Штрафы
+
+Получение списка штрафов по номеру постановления:
+
+```php
+<?php
+$fines = $moneta->fines()
+    ->find()
+    ->byUin('132')
+    ->includePaid()
+    ->exec();
+
+var_dump($fines->totalAmount());
+
+```
+
+Получение списка штрафов по номеру свидетельства о регистрации ТС:
+
+```php
+<?php
+$fines = $moneta->fines()
+    ->find()
+    ->bySTS('132321123')
+    ->includePaid()
+    ->exec();
+
+var_dump($fines->totalAmount());
+
+```
+Получение списка штрафов по номеру водительского удостоверения:
+
+```php
+<?php
+$fines = $moneta->fines()
+    ->find()
+    ->byDriverLicense('132321123')
+    ->includePaid()
+    ->exec();
+
+var_dump($fines->totalAmount());
+
+```
+####Оплата
+
+Выставление счета:
+```php
+<?php
+
+$invoice = $moneta->payments()
+    ->invoice()
+    ->setDestinationAccount('123456789')
+    ->setAmount(200)
+    ->setClientTransactionId('testId1')
+    ->exec();
+var_dump($invoice->getPaymentUrl());
+
+```
+
+Оплата штрафа:
+
+```php
+<?php
+$fine = $fines->current();
+$payment = $moneta->payments()
+    ->payOne($fine)
+    ->setPayerPhone('89222222222') //Обязательно
+    ->setPayerFio('Тестов тест тестович') //Обязательно
+    ->exec();
+var_dump($payment->isSuccessful());
+```
+
 Перевод средств между счетами:
 
 ```php
@@ -167,31 +238,16 @@ var_dump($payment->isSuccessful());
 
 ```
 
-Получение списка штрафов:
-
+Получение информации о переводе:
 ```php
 <?php
-$fines = $moneta->fines()
-    ->find()
-    ->byUin('132')
-    ->includePaid()
+
+$info = $moneta->payments()
+    ->getOperationDetails()
+    ->byId($payment->getId())
     ->exec();
 
-var_dump($fines->totalAmount());
-
-```
-
-Оплата штрафа:
-
-```php
-<?php
-$fine = $fines->current();
-$payment = $moneta->payments()
-    ->payOne($fine)
-    ->setPayerPhone('89222222222') //Обязательно
-    ->setPayerFio('Тестов тест тестович') //Обязательно
-    ->exec();
-var_dump($payment->isSuccessful());
+var_dump($info);
 ```
 
 ## Обратная связь и поддержка
