@@ -30,6 +30,9 @@ class FeatureTest extends TestCase
      */
     protected $api;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         parent::setUp();
