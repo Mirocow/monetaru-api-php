@@ -30,8 +30,10 @@ class PaymentRequestTest extends AbstractRequestTestCase
     public function testSetPaymentPassword()
     {
         $this->builder->setPaymentPassword($password = '123456789');
-        $this->assertEquals($password,
-            $this->builder->getAttributes()->getByType(PaymentRequestReference::FIELD_PAYMENT_PASSWORD)->getValue());
+        $this->assertEquals(
+            $password,
+            $this->builder->getAttributes()->getByType(PaymentRequestReference::FIELD_PAYMENT_PASSWORD)->getValue()
+        );
     }
 
     public function testCreate()
@@ -48,6 +50,6 @@ class PaymentRequestTest extends AbstractRequestTestCase
     {
         $this->assertInstanceOf(Payment::class, $payment =
             $this->builder->setPayerPhone(89876543210)->setPayerFio('Некто с именем')->exec());
-        $this->assertEquals(481587, $payment->getId());
+        $this->assertEquals(123456789, $payment->getId());
     }
 }

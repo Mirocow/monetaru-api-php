@@ -19,7 +19,7 @@ class PaymentBatchRequest extends AbstractPaymentRequest
 {
     protected $transactions = [];
 
-    protected $methodName   = 'PaymentBatchRequest';
+    protected $methodName = 'PaymentBatchRequest';
 
     /**
      * @var FineCollection

@@ -125,6 +125,11 @@ class FineReference extends AbstractReference
     const DATE_FORMAT = CommonReference::DATE_FORMAT;
 
     /**
+     * Название шага.
+     */
+    const STEP_PAY = 'PAY';
+
+    /**
      * {@inheritdoc}
      *
      * @return array|string[]
@@ -155,6 +160,7 @@ class FineReference extends AbstractReference
             static::FIELD_DISCOUNT_DATE,
             static::DATE_FORMAT,
             static::FIELD_FINES,
+            static::STEP_PAY,
         ];
     }
 }

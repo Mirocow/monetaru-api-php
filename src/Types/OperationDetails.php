@@ -101,4 +101,9 @@ class OperationDetails extends AbstractType
     {
         return $this->statusId;
     }
+
+    public function isSuccessful()
+    {
+        return ($this->getStatusId() == 'SUCCEED');
+    }
 }

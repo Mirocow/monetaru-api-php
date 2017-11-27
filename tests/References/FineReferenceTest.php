@@ -30,6 +30,7 @@ class FineReferenceTest extends BaseReferenceTestCase
         'CUSTOMFIELD:DISCOUNTDATE',
         'Y-m-d',
         'CUSTOMFIELD:105',
+        'PAY',
     ];
 
     protected function getAll()

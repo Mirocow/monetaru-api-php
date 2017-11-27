@@ -20,8 +20,8 @@ class OperationDetailsTest extends BaseTypeTest
     public function testGetters()
     {
         $this->assertEquals(123456789, $this->operation->getId());
-        $this->assertEquals(10, $this->operation->getSourceAmount());
-        $this->assertEquals(10, $this->operation->getSourceAmountTotal());
-        $this->assertEquals('CREATED', $this->operation->getStatusId());
+        $this->assertEquals(-800, $this->operation->getSourceAmount());
+        $this->assertEquals(-800, $this->operation->getSourceAmountTotal());
+        $this->assertEquals('SUCCEED', $this->operation->getStatusId());
     }
 }

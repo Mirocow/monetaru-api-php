@@ -6,48 +6,152 @@
           "id": 123456789,
           "attribute": [
             {
-              "value": "BUSINESS",
-              "key": "category"
+              "key": "category",
+              "value": "BUSINESS"
             },
             {
-              "value": "1",
-              "key": "isinvoice"
+              "key": "customfield:billdate",
+              "value": "2017-10-13"
             },
             {
-              "value": "RUB",
-              "key": "sourcecurrencycode"
+              "key": "sourcecurrencycode",
+              "value": "RUB"
             },
             {
-              "value": "10",
-              "key": "sourceamount"
+              "key": "customfield:phone",
+              "value": "9222222222"
             },
             {
-              "value": "5",
-              "key": "typeid"
+              "key": "typeid",
+              "value": "2"
             },
             {
-              "value": "CREATED",
-              "key": "statusid"
+              "key": "customfield:discountsize",
+              "value": "50"
             },
             {
-              "value": "10",
-              "key": "sourceamounttotal"
+              "key": "wireusername",
+              "value": "УФК по Свердловской области"
             },
             {
-              "value": "2017-11-27T08:43:03.000+03:00",
-              "key": "modified"
+              "key": "wireoktmo",
+              "value": "65708000"
             },
             {
-              "value": "id2201650",
-              "key": "clienttransaction"
+              "key": "wirebankname",
+              "value": "Уральское ГУ Банка России"
             },
             {
-              "value": "123456789",
-              "key": "sourceaccountid"
+              "key": "sourcetariffmultiplier",
+              "value": "0"
             },
             {
-              "value": "true",
-              "key": "isreversed"
+              "key": "parentid",
+              "value": "123456789"
+            },
+            {
+              "key": "statusid",
+              "value": "SUCCEED"
+            },
+            {
+              "key": "sourceamounttotal",
+              "value": "-800"
+            },
+            {
+              "key": "wirebankaccount",
+              "value": "40101810500000010010"
+            },
+            {
+              "key": "wiredocindex",
+              "value": "123456789"
+            },
+            {
+              "key": "wirealtpayeridentifier",
+              "value": "2200000000000000000000643"
+            },
+            {
+              "key": "wireuserinn",
+              "value": "6607005515"
+            },
+            {
+              "key": "wirepaymentpurpose",
+              "value": "ШТРАФ ПО АДМИНИСТРАТИВНОМУ ПРАВОНАРУШЕНИЮ ПОСТАНОВЛЕНИЕ №18810066150008099924"
+            },
+            {
+              "key": "modified",
+              "value": "2017-11-27T11:03:09.000+03:00"
+            },
+            {
+              "key": "wirekpp",
+              "value": "660701001"
+            },
+            {
+              "key": "targetalias",
+              "value": "Оплата штрафов ГИБДД (ФK ГИС ГМП 1.16)"
+            },
+            {
+              "key": "wirekbk",
+              "value": "18811630020016000140"
+            },
+            {
+              "key": "subproviderid",
+              "value": "1"
+            },
+            {
+              "key": "sourceaccountid",
+              "value": "12345678"
+            },
+            {
+              "key": "sourceamount",
+              "value": "-800"
+            },
+            {
+              "key": "customfield:discountdate",
+              "value": "2017-11-02"
+            },
+            {
+              "key": "wirepayer",
+              "value": "Тестов тест тестович"
+            },
+            {
+              "key": "targetamount",
+              "value": "800"
+            },
+            {
+              "key": "sourceamountfee",
+              "value": "0"
+            },
+            {
+              "key": "customfield:105",
+              "value": "18810066150008099924"
+            },
+            {
+              "key": "targetcurrencycode",
+              "value": "RUB"
+            },
+            {
+              "key": "wirebankbik",
+              "value": "046577001"
+            },
+            {
+              "key": "customfield:totalamount",
+              "value": "800.00"
+            },
+            {
+              "key": "customfield:soiname",
+              "value": "ОГИБДД МО МВД России Верхнесалдинский"
+            },
+            {
+              "key": "targetaccountid",
+              "value": "9171"
+            },
+            {
+              "key": "customfield:sign",
+              "value": "28ef2e759cd88cdf6ad5b053a3c660c59a13441c7ce67dfba88dc94112a060ad"
+            },
+            {
+              "key": "targettransaction",
+              "value": "123456789"
             }
           ]
         }

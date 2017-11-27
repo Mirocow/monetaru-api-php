@@ -28,6 +28,11 @@ class PaymentRequest extends AbstractPaymentRequest
     protected $methodName = 'PaymentRequest';
 
     /**
+     * {@inheritdoc}
+     */
+    protected $responseName = 'PaymentResponse';
+
+    /**
      * @var AttributeCollection
      */
     protected $operationInfo;
@@ -80,7 +85,7 @@ class PaymentRequest extends AbstractPaymentRequest
      */
     public function prepare($response)
     {
-        return new Payment($response->PaymentResponse);
+        return new Payment($response);
     }
 
     /**

@@ -154,21 +154,22 @@ $moneta = new MonetaApi($config);
 
 ####Штрафы
 
-Получение списка штрафов по номеру постановления:
+#####Получение списка штрафов по номеру постановления:
 
 ```php
 <?php
 $fines = $moneta->fines()
     ->find()
-    ->byUin('132')
+    ->byUin(['132','321'])
     ->includePaid()
     ->exec();
 
 var_dump($fines->totalAmount());
+var_dump($fines->needToPayAmount());
 
 ```
 
-Получение списка штрафов по номеру свидетельства о регистрации ТС:
+#####Получение списка штрафов по номеру свидетельства о регистрации ТС:
 
 ```php
 <?php
@@ -181,7 +182,7 @@ $fines = $moneta->fines()
 var_dump($fines->totalAmount());
 
 ```
-Получение списка штрафов по номеру водительского удостоверения:
+#####Получение списка штрафов по номеру водительского удостоверения:
 
 ```php
 <?php
@@ -192,11 +193,15 @@ $fines = $moneta->fines()
     ->exec();
 
 var_dump($fines->totalAmount());
+var_dump($fines->needToPayAmount());
 
 ```
+
+В ответ приходит объект класса [FineCollection][fine_collection].
+
 ####Оплата
 
-Выставление счета:
+#####Выставление счета:
 ```php
 <?php
 
@@ -209,8 +214,9 @@ $invoice = $moneta->payments()
 var_dump($invoice->getPaymentUrl());
 
 ```
+В ответ приходит объект класса [Invoice][invoice].
 
-Оплата штрафа:
+#####Оплата штрафа:
 
 ```php
 <?php
@@ -223,7 +229,7 @@ $payment = $moneta->payments()
 var_dump($payment->isSuccessful());
 ```
 
-Перевод средств между счетами:
+#####Перевод средств между счетами:
 
 ```php
 <?php
@@ -237,8 +243,10 @@ $payment = $moneta->payments()->transfer()
 var_dump($payment->isSuccessful());
 
 ```
+В ответ приходит объект класса [Payment][payment].
 
-Получение информации о переводе:
+
+#####Получение информации о переводе:
 ```php
 <?php
 
@@ -249,6 +257,7 @@ $info = $moneta->payments()
 
 var_dump($info);
 ```
+В ответ приходит объект класса [OperationDetails][operation_details].
 
 ## Обратная связь и поддержка
 
@@ -263,6 +272,10 @@ var_dump($info);
 [client_v1]:./src/Clients/MonetaApi.php
 [http_client]:./src/HttpClients/HttpClientInterface.php
 [http_client_guzzle]:./src/HttpClients/GuzzleHttpClient.php
+[fine_collection]:./src/Support/FineCollection.php
+[invoice]:./src/Types/Invoice.php
+[payment]:./src/Types/Payment.php
+[operation_details]:./src/Types/OperationDetails.php
 [references]:./src/References
 [data_types]:./src/Types
 [feature_test_file]:./tests/SomeFeatureTestsTest.php

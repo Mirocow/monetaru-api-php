@@ -29,7 +29,19 @@ class AbstractBuilderTest extends AbstractRequestTestCase
 
     public function testTest()
     {
-        $this->assertInstanceOf(\stdClass::class, $this->builder->setTest('value')->exec());
+        $this->assertTrue(is_array($response = $this->builder->setTest('value')->exec()));
+        $this->assertEquals(
+            [
+                'key'       => 'value',
+                'attribute' => [
+                    [
+                        'key'   => 'name',
+                        'value' => 'value',
+                    ],
+                ],
+            ],
+            $response
+        );
     }
 
     public function testRequiredException()

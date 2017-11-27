@@ -67,4 +67,14 @@ class FineCollection extends AbstractCollection
 
         return $return;
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Fine
+     */
+    public function current()
+    {
+        return parent::current();
+    }
 }

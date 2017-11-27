@@ -15,12 +15,18 @@ use AvtoDev\MonetaApi\References\OperationInfoPaymentRequestReference;
  *
  * @see InvoiceRequestReference
  * @see OperationInfoPaymentRequestReference
- *
- * @todo: На демо Access is denied
  */
 class InvoiceRequest extends AbstractPaymentRequest
 {
+    /**
+     * {@inheritdoc}
+     */
     protected $methodName = 'InvoiceRequest';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $responseName = 'InvoiceResponse';
 
     /**
      * {@inheritdoc}
@@ -66,7 +72,7 @@ class InvoiceRequest extends AbstractPaymentRequest
      */
     public function prepare($response)
     {
-        return new Invoice($response->InvoiceResponse);
+        return new Invoice($response);
     }
 
     /**

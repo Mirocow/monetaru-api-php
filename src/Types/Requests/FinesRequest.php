@@ -31,6 +31,11 @@ class FinesRequest extends AbstractRequest
     /**
      * {@inheritdoc}
      */
+    protected $responseName = 'GetNextStepResponse';
+
+    /**
+     * {@inheritdoc}
+     */
     protected $required = [
         FinesRequestReference::SEARCH_METHOD,
     ];
@@ -125,36 +130,6 @@ class FinesRequest extends AbstractRequest
     }
 
     /**
-     * @todo Переписать
-     *
-     * @param $response
-     *
-     * @return Fine[]|FineCollection
-     */
-    public function prepare($response)
-    {
-        $return = new FineCollection;
-
-        if (! isset($response->GetNextStepResponse->nextStep) || $response->GetNextStepResponse->nextStep != 'PAY') {
-            return $return;
-        }
-        foreach ($response->GetNextStepResponse->fields->field as $field) {
-            if (isset($field->{'attribute-name'})
-                && $field->{'attribute-name'} == FineReference::FIELD_FINES
-                && isset($field->enum)
-                && is_array($field->enum->complexItem)
-            ) {
-                foreach ($field->enum->complexItem as $complexItem) {
-                    $fine = new Fine($complexItem);
-                    $return->push($fine);
-                }
-            }
-        }
-
-        return $return;
-    }
-
-    /**
      * Устанавливает начальную дату поиска.
      *
      * @param Carbon|\DateTime|int|string $date_time
@@ -192,6 +167,37 @@ class FinesRequest extends AbstractRequest
         );
 
         return $this;
+    }
+
+    /**
+     * @todo Переписать
+     *
+     * @param array $response
+     *
+     * @return Fine[]|FineCollection
+     */
+    protected function prepare($response)
+    {
+        $result = new FineCollection;
+
+        if (! isset($response['nextStep']) || $response['nextStep'] != FineReference::STEP_PAY) {
+            return $result;
+        }
+        foreach ($response['fields']['field'] as $field) {
+            if (isset($field['attribute-name'])
+                && $field['attribute-name'] == FineReference::FIELD_FINES
+                && isset($field['enum'], $field['enum']['complexItem'])
+                && is_array($field['enum']['complexItem'])
+            ) {
+                foreach ($field['enum']['complexItem'] as $complexItem) {
+                    $fine = new Fine($complexItem);
+                    $result->push($fine);
+                }
+                break;
+            }
+        }
+
+        return $result;
     }
 
     /**

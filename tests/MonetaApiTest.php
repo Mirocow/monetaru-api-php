@@ -92,8 +92,11 @@ class MonetaApiTest extends TestCase
     public function testNotFoundTestResponse()
     {
         $builder = new RequestMock($this->api);
-        $json    = '{"TypeName": {"key": "value","attribute": [{"key": "name","value": "value"}]}}';
-        $this->assertEquals(json_decode($json), $response = $builder->setMethodName('empty')->setTest('test')->exec());
+        $json    = '{"key": "value","attribute": [{"key": "name","value": "value"}]}';
+        $this->assertEquals(
+            json_decode($json, true),
+            $response = $builder->setMethodName('empty')->setTest('test')->exec()
+        );
     }
 
     public function testExec()

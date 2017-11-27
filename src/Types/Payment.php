@@ -28,7 +28,7 @@ class Payment extends AbstractType
                 case 'attribute':
                     $attributes = $this->convertToArray($value);
                     foreach ((array) $attributes as $attribute) {
-                        $this->attributes->push(new MonetaAttribute($attribute->key, $attribute->value));
+                        $this->attributes->push(new MonetaAttribute($attribute['key'], $attribute['value']));
                     }
                     break;
             }

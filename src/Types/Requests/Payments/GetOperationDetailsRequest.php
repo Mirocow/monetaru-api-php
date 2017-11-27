@@ -7,13 +7,20 @@ use AvtoDev\MonetaApi\Types\Requests\AbstractRequest;
 
 class GetOperationDetailsRequest extends AbstractRequest
 {
-    protected $methodName = 'GetOperationDetailsByIdRequest';
+    protected $methodName   = 'GetOperationDetailsByIdRequest';
+
+    protected $responseName = 'GetOperationDetailsByIdResponse';
 
     protected $id;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return OperationDetails
+     */
     public function prepare($response)
     {
-        return new OperationDetails($response->GetOperationDetailsByIdResponse);
+        return new OperationDetails($response);
     }
 
     /**

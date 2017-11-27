@@ -36,6 +36,13 @@ abstract class AbstractRequest implements Jsonable
     protected $methodName;
 
     /**
+     * Название возвращаемого значения.
+     *
+     * @var string
+     */
+    protected $responseName = 'TypeName';
+
+    /**
      * Поля обязательные к заполнению.
      *
      * @var array
@@ -81,13 +88,6 @@ abstract class AbstractRequest implements Jsonable
     }
 
     /**
-     * Подготавливает ответ
-     *
-     * @param \stdClass $response
-     */
-    abstract public function prepare($response);
-
-    /**
      * Выполняет запрос
      *
      * @throws MonetaBadRequestException
@@ -101,13 +101,13 @@ abstract class AbstractRequest implements Jsonable
         $this->checkRequired();
 
         $response       = $this->api->apiRequest($this);
-        $responseObject = json_decode($response->getBody()->getContents());
-        $responseBody   = $responseObject->Envelope->Body;
-        if ($response->getStatusCode() !== 200 || isset($responseBody->fault)) {
+        $responseObject = json_decode($response->getBody()->getContents(), true);
+        $responseBody   = $responseObject['Envelope']['Body'];
+        if ($response->getStatusCode() !== 200 || isset($responseBody['fault'])) {
             throw $this->prepareError($responseBody);
         }
 
-        return $this->prepare($responseBody);
+        return $this->prepare($responseBody[$this->responseName]);
     }
 
     /**
@@ -131,6 +131,13 @@ abstract class AbstractRequest implements Jsonable
     }
 
     /**
+     * Подготавливает ответ
+     *
+     * @param array $response
+     */
+    abstract protected function prepare($response);
+
+    /**
      * Строит тело запроса.
      *
      * @return array
@@ -140,7 +147,7 @@ abstract class AbstractRequest implements Jsonable
     /**
      * Подготавливает ошибку.
      *
-     * @param \stdClass $response
+     * @param array $response
      *
      * @return MonetaBadRequestException|MonetaBadSettingsException|MonetaServerErrorException
      */
@@ -148,17 +155,23 @@ abstract class AbstractRequest implements Jsonable
     {
         $exception = new MonetaBadSettingsException;
         $message   = '';
-        dump($response);
-        if (isset($response->fault->faultstring) && trim($response->fault->faultstring)) {
-            $message = $response->fault->faultstring;
+        if (isset($response['fault']['faultstring']) && trim($response['fault']['faultstring'])) {
+            $message = $response['fault']['faultstring'];
         }
-        switch ($response->fault->faultcode) {
-            case 'Client':
-                $exception = new MonetaBadRequestException($message, $response->fault->detail->faultDetail);
-                break;
-            case 'Server':
-                $exception = new MonetaServerErrorException($message, $response->fault->detail->faultDetail);
-                break;
+        if (isset(
+            $response['fault'],
+            $response['fault']['detail'],
+            $response['fault']['detail']['faultDetail'],
+            $response['fault']['faultcode']
+        )) {
+            switch ($response['fault']['faultcode']) {
+                case 'Client':
+                    $exception = new MonetaBadRequestException($message, $response['fault']['detail']['faultDetail']);
+                    break;
+                case 'Server':
+                    $exception = new MonetaServerErrorException($message, $response['fault']['detail']['faultDetail']);
+                    break;
+            }
         }
 
         return $exception;

@@ -123,7 +123,7 @@ class FinesRequestTest extends AbstractRequestTestCase
     public function testNotFound()
     {
         $json = file_get_contents(__DIR__ . '/Mock/EmptyFineResponse.json');
-        $this->assertEmpty($response = $this->builder->prepare(json_decode($json)));
+        $this->assertEmpty($response = $this->builder->prepare(json_decode($json, true)));
         $this->assertInstanceOf(FineCollection::class, ($response));
     }
 

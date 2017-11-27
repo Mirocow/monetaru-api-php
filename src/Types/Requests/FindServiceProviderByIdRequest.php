@@ -20,7 +20,15 @@ class FindServiceProviderByIdRequest extends AbstractRequest
      */
     protected $methodName = 'FindServiceProviderByIdRequest';
 
-    protected $required   = [
+    /**
+     * {@inheritdoc}
+     */
+    protected $responseName = 'FindServiceProviderByIdResponse';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $required = [
         ProviderRequestReference::FIELD_PROVIDER_ID,
     ];
 
@@ -35,16 +43,6 @@ class FindServiceProviderByIdRequest extends AbstractRequest
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return Provider
-     */
-    public function prepare($response)
-    {
-        return new Provider($response->FindServiceProviderByIdResponse->provider);
-    }
-
-    /**
      * Устанавливает ID поиска.
      *
      * @param $id
@@ -56,6 +54,16 @@ class FindServiceProviderByIdRequest extends AbstractRequest
         $this->attributes->push(new MonetaAttribute(ProviderRequestReference::FIELD_PROVIDER_ID, $id));
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Provider
+     */
+    protected function prepare($response)
+    {
+        return new Provider($response['provider']);
     }
 
     protected function createBody()

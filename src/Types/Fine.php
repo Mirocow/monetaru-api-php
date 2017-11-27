@@ -177,17 +177,13 @@ class Fine extends AbstractType
 
                 case FineReference::FIELD_CONTENT:
                     $content = $this->convertToArray($value);
+                    $config  = [];
                     foreach ($content as $item) {
-                        $item = (array) $item;
-                        $this->configure(
-                            new MonetaAttribute(
-                                $item['name'],
-                                (isset($item['value']))
-                                    ? $item['value']
-                                    : null
-                            )
-                        );
+                        $config[$item['name']] = (isset($item['value']))
+                            ? $item['value']
+                            : null;
                     }
+                    $this->configure($config);
                     break;
 
                 case FineReference::FIELD_BILL_DATE:
@@ -258,7 +254,7 @@ class Fine extends AbstractType
                     $this->discountDate = $this->convertToCarbon($value, FineReference::DATE_FORMAT);
                     break;
             }
-            if ($key !== FineReference::FIELD_CONTENT && in_array($key, FineReference::getAll())) {
+            if ($key !== FineReference::FIELD_CONTENT) {
                 $this->attributes->push(new MonetaAttribute($key, $value));
             }
         }
@@ -279,6 +275,9 @@ class Fine extends AbstractType
         return $this->label;
     }
 
+    /**
+     * @return Carbon
+     */
     public function getBillDate()
     {
         return $this->billDate;
@@ -349,6 +348,9 @@ class Fine extends AbstractType
         return $this->totalAmount;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsPaid()
     {
         return $this->isPaid;
@@ -359,6 +361,9 @@ class Fine extends AbstractType
         return $this->discountSize;
     }
 
+    /**
+     * @return Carbon
+     */
     public function getDiscountDate()
     {
         return $this->discountDate;

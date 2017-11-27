@@ -22,7 +22,7 @@ class InvoiceTest extends BaseTypeTest
         parent::setUp();
         $this->invoice = $this->api->payments()->invoice()
             ->setDestinationAccount('123')
-            ->setClientTransactionId('id9986897')
+            ->setClientTransactionId('id9876543')
             ->setAmount(200)
             ->exec();
     }
@@ -42,7 +42,7 @@ class InvoiceTest extends BaseTypeTest
         );
 
         $this->assertEquals('CREATED', $this->invoice->getStatus());
-        $this->assertEquals('id9986897', $this->invoice->getClientTransactionId());
+        $this->assertEquals('id9876543', $this->invoice->getClientTransactionId());
 
         $url =
             'https://www.payanyway.ru/assistant.htm?'
