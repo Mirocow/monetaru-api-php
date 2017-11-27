@@ -30,7 +30,7 @@ class FinesRequestTest extends AbstractRequestTestCase
 
     public function testByUin()
     {
-        $uin            = '1234';
+        $uin            = ['1234', '4321'];
         $searchMethod   = 'CUSTOMFIELD:200';
         $byUinAttribute = 'CUSTOMFIELD:101';
 
@@ -40,7 +40,7 @@ class FinesRequestTest extends AbstractRequestTestCase
         $this->assertEquals(0, $this->builder->getAttributes()->getByType($searchMethod)->getValue());
 
         $this->assertTrue($this->builder->getAttributes()->hasByType($byUinAttribute));
-        $this->assertEquals($uin, $this->builder->getAttributes()->getByType($byUinAttribute)->getValue());
+        $this->assertEquals('1234,4321', $this->builder->getAttributes()->getByType($byUinAttribute)->getValue());
 
         $this->assertInstanceOf(FineCollection::class, ($response));
         $this->assertNotEmpty(($response));
