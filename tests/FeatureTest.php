@@ -167,6 +167,8 @@ class FeatureTest extends TestCase
                 )//Платёжный пароль счёта
                 ->setPayerFio('Тестов Тест Тестович')//Обязательно
                 ->setPayerPhone(89292198689)//Обязательно
+                ->setParentId(132456789)
+                ->setCommission(100)
                 ->exec()
         );
         $this->assertTrue($payment->isSuccessful());
