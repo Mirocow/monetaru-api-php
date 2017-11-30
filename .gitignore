@@ -1,5 +1,12 @@
-/vendor
-composer.lock
-/coverage/
-/.php_cs.cache
+# IDEs
+/nbproject
 /.idea
+
+# Vendors
+/vendor
+/storage
+/composer.lock
+
+# etc
+/.php_cs.cache
+/coverage
