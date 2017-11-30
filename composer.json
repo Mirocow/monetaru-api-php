@@ -1,5 +1,5 @@
 {
-  "name": "avto-dev/moneta-api-php",
+  "name": "avto-dev/monetaru-api-php",
   "description": "PHP package for a working with Moneta.ru service",
   "keywords": [
     "php",
@@ -40,8 +40,8 @@
     }
   },
   "support": {
-    "issues": "https://github.com/avto-dev/moneta-api/issues",
-    "source": "https://github.com/avto-dev/moneta-api"
+    "issues": "https://github.com/avto-dev/monetaru-api-php/issues",
+    "source": "https://github.com/avto-dev/monetaru-api-php"
   },
   "scripts": {
     "test": "./vendor/bin/phpunit --no-coverage"

@@ -21,7 +21,7 @@
 Для установки данного пакета выполните в терминале следующую команду
 
 ```shell
-$ composer require avto-dev/moneta-api-php "1.*"
+$ composer require avto-dev/monetaru-api-php "1.*"
 ```
 
 Или добавьте зависимость вручную в composer.json
