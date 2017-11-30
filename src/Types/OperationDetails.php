@@ -64,7 +64,7 @@ class OperationDetails extends AbstractType
                     $this->statusId = trim($value);
                     break;
             }
-            if ($key != 'operation' && $key != 'attribute') {
+            if ($key !== 'operation' && $key !== 'attribute') {
                 $this->attributes->push(new MonetaAttribute($key, $value));
             }
         }
@@ -104,6 +104,6 @@ class OperationDetails extends AbstractType
 
     public function isSuccessful()
     {
-        return ($this->getStatusId() == 'SUCCEED');
+        return $this->getStatusId() === 'SUCCEED';
     }
 }

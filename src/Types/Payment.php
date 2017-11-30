@@ -50,7 +50,7 @@ class Payment extends AbstractType
      */
     public function isSuccessful()
     {
-        return ($this->getStatus() == 'SUCCEED');
+        return $this->getStatus() === 'SUCCEED';
     }
 
     /**

@@ -180,12 +180,12 @@ class FinesRequest extends AbstractRequest
     {
         $result = new FineCollection;
 
-        if (! isset($response['nextStep']) || $response['nextStep'] != FineReference::STEP_PAY) {
+        if (! isset($response['nextStep']) || $response['nextStep'] !== FineReference::STEP_PAY) {
             return $result;
         }
         foreach ($response['fields']['field'] as $field) {
             if (isset($field['attribute-name'])
-                && $field['attribute-name'] == FineReference::FIELD_FINES
+                && $field['attribute-name'] === FineReference::FIELD_FINES
                 && isset($field['enum'], $field['enum']['complexItem'])
                 && is_array($field['enum']['complexItem'])
             ) {

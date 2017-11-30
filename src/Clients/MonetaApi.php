@@ -25,12 +25,12 @@ class MonetaApi
      * @var array
      */
     protected $config   = [
-        /**
+        /*
          * Endpoint работы с Монетой.
          */
         'endpoint'         => 'https://service.moneta.ru:51443/services',
 
-        /**
+        /*
          * ИД ГБДД в системе Монета.
          */
         'fine_provider_id' => '9171.1',

@@ -33,7 +33,5 @@ trait ConvertToCarbon
         } elseif (is_string($value)) {
             return Carbon::parse($value);
         }
-
-        return null;
     }
 }

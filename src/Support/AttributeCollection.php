@@ -130,8 +130,6 @@ class AttributeCollection extends AbstractCollection
         if (isset($this->stack[$attributeType])) {
             return $this->stack[$attributeType];
         }
-
-        return null;
     }
 
     /**
