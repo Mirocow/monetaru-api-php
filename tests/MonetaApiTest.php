@@ -99,16 +99,6 @@ class MonetaApiTest extends TestCase
         );
     }
 
-    public function testExec()
-    {
-        $this->config['is_test'] = false;
-        $api                     = new Api($this->config);
-        $builder                 = new RequestMock($api);
-        $this->expectException(MonetaBadRequestException::class);
-        $this->expectExceptionMessage('Неверное имя пользователя и пароль');
-        $builder->setMethodName('GetNextStepRequest')->setTest('test')->exec();
-    }
-
     public function testPayButch()
     {
         $collection = new FineCollection;
