@@ -9,7 +9,6 @@ use AvtoDev\MonetaApi\Support\FineCollection;
 use AvtoDev\MonetaApi\Clients\MonetaApi as Api;
 use AvtoDev\MonetaApi\Types\Requests\FinesRequest;
 use AvtoDev\MonetaApi\Types\Attributes\MonetaAttribute;
-use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 use AvtoDev\MonetaApi\Exceptions\MonetaBadSettingsException;
 use AvtoDev\MonetaApi\Tests\Types\Requests\Mock\RequestMock;
 use AvtoDev\MonetaApi\Types\Requests\Payments\InvoiceRequest;
