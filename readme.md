@@ -4,12 +4,12 @@
 
 # PHP-клиент для работы с сервисом `moneta.ru`
 
-![Packagist](https://img.shields.io/packagist/v/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30)
-[![Build Status](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master)
-![StyleCI](https://styleci.io/repos/112570841/shield?style=flat&maxAge=30)
-[![Code Coverage](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master)
-![GitHub issues](https://img.shields.io/github/issues/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30)
+[![Packagist](https://img.shields.io/packagist/v/avto-dev/monetaru-api-php.svg?style=flat&maxAge=31)](https://packagist.org/packages/avto-dev/monetaru-api-php)
+[![Build Status](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master&maxAge=31)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master)
+![StyleCI](https://styleci.io/repos/112570841/shield?style=flat&maxAge=31)
+[![Code Coverage](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master&maxAge=31)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master&maxAge=31)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master)
+![GitHub issues](https://img.shields.io/github/issues/avto-dev/monetaru-api-php.svg?style=flat&maxAge=31)
 
 Данный пакет является реализацией клиента для работы с сервисом `moneta.ru`,
 значительно упрощающим работу с последним, предоставляя разработчику внятное API.
