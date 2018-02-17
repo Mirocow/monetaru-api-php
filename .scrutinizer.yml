@@ -2,6 +2,9 @@ filter:
   excluded_paths:
     - 'tests/*'
 
+checks:
+  php:
+
 build:
   environment:
     mysql: false
