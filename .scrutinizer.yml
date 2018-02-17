@@ -47,7 +47,7 @@ build:
               file: 'clover-file'
               format: 'clover'
 
-    php71:
+    php72:
       environment:
         php: 7.2
       tests:
