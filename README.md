@@ -271,12 +271,12 @@ var_dump($info);
 Код данного пакета распространяется под лицензией **MIT**.
 
 [badge_version]:https://img.shields.io/packagist/v/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
-[badge_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master&maxAge=30
-[badge_styleci]:https://styleci.io/repos/112570841/shield?style=flat&maxAge=30
-[badge_coverage]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master&maxAge=30
-[badge_code_quality]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master&maxAge=31
-[badge_license]:https://img.shields.io/packagist/l/avto-dev/php-cs-fixer.svg
-[badge_issues]:https://img.shields.io/github/issues/avto-dev/php-cs-fixer.svg?style=flat&maxAge=30
+[badge_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master
+[badge_styleci]:https://styleci.io/repos/112570841/shield?style=flat
+[badge_coverage]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master
+[badge_code_quality]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master
+[badge_license]:https://img.shields.io/packagist/l/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
+[badge_issues]:https://img.shields.io/github/issues/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
 [badge_downloads]:https://img.shields.io/packagist/dt/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
 [link_packagist]:https://packagist.org/packages/avto-dev/monetaru-api-php
 [link_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master
