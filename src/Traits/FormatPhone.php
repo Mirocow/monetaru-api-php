@@ -4,8 +4,17 @@ namespace AvtoDev\MonetaApi\Traits;
 
 use AvtoDev\MonetaApi\Exceptions\MonetaBadRequestException;
 
+/**
+ * Trait FormatPhone.
+ */
 trait FormatPhone
 {
+    /**
+     * @param $phone
+     *
+     * @return int
+     * @throws MonetaBadRequestException
+     */
     protected function normalizePhone($phone)
     {
         $phone = str_replace('+7', '8', $phone);
@@ -20,6 +29,11 @@ trait FormatPhone
         return (int) $phone;
     }
 
+    /**
+     * @param $phone
+     *
+     * @return int|string
+     */
     protected function formatPhone($phone)
     {
         $phone = $this->normalizePhone($phone);

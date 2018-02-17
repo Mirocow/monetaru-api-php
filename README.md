@@ -1,15 +1,18 @@
 <p align="center">
+  <img alt="logo" src="https://hsto.org/webt/0v/qb/0p/0vqb0pp6ntyyd8mbdkkj0wsllwo.png" width="70"  height="70" />
   <img alt="logo" src="https://habrastorage.org/webt/59/df/45/59df45aa6c9cb971309988.png" width="70"  height="70" />
 </p>
 
 # PHP-клиент для работы с сервисом `moneta.ru`
 
-[![Packagist](https://img.shields.io/packagist/v/avto-dev/monetaru-api-php.svg?style=flat&maxAge=31)](https://packagist.org/packages/avto-dev/monetaru-api-php)
-[![Build Status](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master&maxAge=31)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master)
-![StyleCI](https://styleci.io/repos/112570841/shield?style=flat&maxAge=31)
-[![Code Coverage](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master&maxAge=31)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master&maxAge=31)](https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master)
-![GitHub issues](https://img.shields.io/github/issues/avto-dev/monetaru-api-php.svg?style=flat&maxAge=31)
+[![Version][badge_version]][link_packagist]
+[![Build][badge_build]][link_build]
+![StyleCI][badge_styleci]
+[![Coverage][badge_coverage]][link_coverage]
+[![Code Quality][badge_code_quality]][link_coverage]
+[![License][badge_license]][link_license]
+[![Issues][badge_issues]][link_issues]
+[![Downloads][badge_downloads]][link_packagist]
 
 Данный пакет является реализацией клиента для работы с сервисом `moneta.ru`,
 значительно упрощающим работу с последним, предоставляя разработчику внятное API.
@@ -21,7 +24,7 @@
 Для установки данного пакета выполните в терминале следующую команду
 
 ```shell
-$ composer require avto-dev/monetaru-api-php "1.*"
+$ composer require avto-dev/monetaru-api-php "^1.0"
 ```
 
 Или добавьте зависимость вручную в composer.json
@@ -267,6 +270,20 @@ var_dump($info);
 
 Код данного пакета распространяется под лицензией **MIT**.
 
+[badge_version]:https://img.shields.io/packagist/v/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
+[badge_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/build.png?b=master&maxAge=30
+[badge_styleci]:https://styleci.io/repos/112570841/shield?style=flat&maxAge=30
+[badge_coverage]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/coverage.png?b=master&maxAge=30
+[badge_code_quality]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/badges/quality-score.png?b=master&maxAge=31
+[badge_license]:https://img.shields.io/packagist/l/avto-dev/php-cs-fixer.svg
+[badge_issues]:https://img.shields.io/github/issues/avto-dev/php-cs-fixer.svg?style=flat&maxAge=30
+[badge_downloads]:https://img.shields.io/packagist/dt/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
+[link_packagist]:https://packagist.org/packages/avto-dev/monetaru-api-php
+[link_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master
+[link_coverage]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master
+[link_license]:https://github.com/avto-dev/monetaru-api-php/blob/master/LICENSE
+[link_issues]:https://github.com/avto-dev/monetaru-api-php/issues
+[getcomposer]:https://getcomposer.org/download/
 [client_v1]:./src/Clients/MonetaApi.php
 [http_client]:./src/HttpClients/HttpClientInterface.php
 [http_client_guzzle]:./src/HttpClients/GuzzleHttpClient.php
@@ -277,4 +294,3 @@ var_dump($info);
 [references]:./src/References
 [data_types]:./src/Types
 [feature_test_file]:./tests/SomeFeatureTestsTest.php
-[getcomposer]:https://getcomposer.org/download/

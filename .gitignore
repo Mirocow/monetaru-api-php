@@ -1,12 +1,18 @@
+# Composer locak file
+composer.lock
+
 # IDEs
 /nbproject
 /.idea
 
 # Vendors
 /vendor
-/storage
-/composer.lock
 
-# etc
-/.php_cs.cache
+# Temp dirs & trash
+/temp
+/tmp
+/storage
+/install
 /coverage
+.DS_Store
+.php_cs.cache

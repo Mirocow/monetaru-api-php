@@ -19,6 +19,11 @@ abstract class AbstractType implements Configurable, Arrayable
      */
     protected $attributes;
 
+    /**
+     * AbstractType constructor.
+     *
+     * @param null $response
+     */
     public function __construct($response = null)
     {
         $this->attributes = new AttributeCollection;

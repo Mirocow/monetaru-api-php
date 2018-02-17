@@ -6,6 +6,9 @@ use JsonSerializable;
 use AvtoDev\MonetaApi\Support\Contracts\Jsonable;
 use AvtoDev\MonetaApi\Support\Contracts\Collection;
 
+/**
+ * Class AbstractCollection.
+ */
 abstract class AbstractCollection implements Collection, Jsonable, JsonSerializable
 {
     protected $stack    = [];
@@ -99,10 +102,16 @@ abstract class AbstractCollection implements Collection, Jsonable, JsonSerializa
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->jsonSerialize(), $options);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     abstract public function jsonSerialize();
 }

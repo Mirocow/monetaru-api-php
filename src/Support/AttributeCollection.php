@@ -144,6 +144,9 @@ class AttributeCollection extends AbstractCollection
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function jsonSerialize()
     {
         $return = [];
