@@ -12,8 +12,9 @@ trait FormatPhone
     /**
      * @param $phone
      *
-     * @return int
      * @throws MonetaBadRequestException
+     *
+     * @return int
      */
     protected function normalizePhone($phone)
     {
