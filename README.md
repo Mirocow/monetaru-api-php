@@ -7,7 +7,7 @@
 
 [![Version][badge_version]][link_packagist]
 [![Build][badge_build]][link_build]
-![StyleCI][badge_styleci]
+[![StyleCI][badge_styleci]][link_styleci]
 [![Coverage][badge_coverage]][link_coverage]
 [![Code Quality][badge_code_quality]][link_coverage]
 [![License][badge_license]][link_license]
@@ -280,6 +280,7 @@ var_dump($info);
 [badge_downloads]:https://img.shields.io/packagist/dt/avto-dev/monetaru-api-php.svg?style=flat&maxAge=30
 [link_packagist]:https://packagist.org/packages/avto-dev/monetaru-api-php
 [link_build]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/build-status/master
+[link_styleci]:https://styleci.io/repos/112570841/
 [link_coverage]:https://scrutinizer-ci.com/g/avto-dev/monetaru-api-php/?branch=master
 [link_license]:https://github.com/avto-dev/monetaru-api-php/blob/master/LICENSE
 [link_issues]:https://github.com/avto-dev/monetaru-api-php/issues
